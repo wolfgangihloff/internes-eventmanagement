@@ -451,12 +451,6 @@ export const backendRouteSections = [
     rows: [
       {
         method: 'GET',
-        path: '/api/v1/users/me/participations',
-        access: 'Authentifiziert',
-        summary: 'Eigene Teilnahmen inklusive Event-Bezug über alle Events hinweg auflisten',
-      },
-      {
-        method: 'GET',
         path: '/api/v1/events/:eventId/participations',
         access: 'participation:read',
         summary: 'Teilnahmen zu einem Event auflisten',
