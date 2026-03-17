@@ -1,6 +1,6 @@
 import { pgTable, uuid, text, timestamp, pgEnum } from 'drizzle-orm/pg-core';
-import { users } from './users.js';
-import { events } from './events.js';
+import { users } from './users';
+import { events } from './events';
 
 export const commChannelEnum = pgEnum('comm_channel', ['email', 'in_app', 'push']);
 export const commDirectionEnum = pgEnum('comm_direction', ['outbound', 'internal']);

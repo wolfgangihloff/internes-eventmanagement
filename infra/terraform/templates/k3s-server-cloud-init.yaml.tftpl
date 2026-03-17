@@ -1,0 +1,38 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+packages:
+  - curl
+  - ca-certificates
+  - apt-transport-https
+
+write_files:
+  - path: /usr/local/bin/install-k3s.sh
+    permissions: "0755"
+    content: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+
+      PUBLIC_IP="$(ip -4 route get 1.1.1.1 | awk '{for (i=1;i<=NF;i++) if ($i == "src") {print $(i+1); exit}}')"
+
+      mkdir -p /etc/rancher/k3s
+      cat > /etc/rancher/k3s/config.yaml <<EOF
+      write-kubeconfig-mode: "0644"
+      cluster-init: true
+      disable-cloud-controller: true
+      node-name: "${cluster_name}-cp-1"
+      node-ip: "$${PUBLIC_IP}"
+      node-external-ip: "$${PUBLIC_IP}"
+      advertise-address: "$${PUBLIC_IP}"
+      kubelet-arg:
+        - cloud-provider=external
+      disable:
+        - servicelb
+      tls-san:
+        - "$${PUBLIC_IP}"
+      EOF
+
+      curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL="${k3s_channel}" K3S_TOKEN="${k3s_token}" sh -s - server
+
+runcmd:
+  - /usr/local/bin/install-k3s.sh

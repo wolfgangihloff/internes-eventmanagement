@@ -97,6 +97,18 @@
   box-shadow: 0 24px 60px rgba(20, 33, 38, 0.18);
 }
 
+.sbdocs-content .ecs-docs-hero .ecs-docs-title {
+  color: #fffdf9;
+}
+
+.sbdocs-content .ecs-docs-hero .ecs-docs-summary {
+  color: rgba(255, 253, 249, 0.84);
+}
+
+.sbdocs-content .ecs-docs-hero .ecs-docs-eyebrow {
+  color: rgba(255, 253, 249, 0.8);
+}
+
 .ecs-docs-hero::after {
   content: '';
   position: absolute;
@@ -238,6 +250,51 @@
   color: #376841;
 }
 
+.ecs-docs-code-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.ecs-docs-table-wrap {
+  overflow-x: auto;
+}
+
+.ecs-docs-table {
+  width: 100%;
+  min-width: 40rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1rem 0 1.6rem;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(20, 33, 38, 0.08);
+}
+
+.ecs-docs-table thead th {
+  background: #16343a;
+  color: #fffdf9;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.95rem 1rem;
+}
+
+.ecs-docs-table tbody td {
+  background: rgba(255, 253, 249, 0.95);
+  border-bottom: 1px solid rgba(20, 33, 38, 0.08);
+  padding: 0.95rem 1rem;
+  vertical-align: top;
+}
+
+.ecs-docs-table tbody tr:nth-child(even) td {
+  background: rgba(244, 239, 231, 0.88);
+}
+
+.ecs-docs-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
 @media (max-width: 900px) {
   .ecs-docs-grid--two,
   .ecs-docs-grid--three {
@@ -246,5 +303,46 @@
 
   .ecs-docs-hero {
     padding: 1.5rem;
+  }
+
+  .ecs-docs-table {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .ecs-docs-table thead {
+    display: none;
+  }
+
+  .ecs-docs-table,
+  .ecs-docs-table tbody,
+  .ecs-docs-table tr,
+  .ecs-docs-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .ecs-docs-table tbody tr {
+    margin-bottom: 1rem;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 14px 30px rgba(20, 33, 38, 0.08);
+  }
+
+  .ecs-docs-table tbody td {
+    border-bottom: 1px solid rgba(20, 33, 38, 0.08);
+    padding-top: 0.7rem;
+  }
+
+  .ecs-docs-table tbody td::before {
+    content: attr(data-label);
+    display: block;
+    color: #7d6140;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
   }
 }

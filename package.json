@@ -1,0 +1,17 @@
+{
+  "name": "internes-eventmanagement",
+  "private": true,
+  "scripts": {
+    "docs:audit": "npm --prefix frontend run docs:audit",
+    "docs:check": "npm --prefix frontend run docs:check",
+    "storybook": "npm --prefix frontend run storybook",
+    "build-storybook": "npm --prefix frontend run build-storybook",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:build": "npm --prefix frontend run build",
+    "frontend:lint": "npm --prefix frontend run lint",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:build": "npm --prefix backend run build",
+    "backend:test": "npm --prefix backend run test",
+    "backend:lint": "npm --prefix backend run lint"
+  }
+}

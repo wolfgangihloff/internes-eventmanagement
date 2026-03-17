@@ -7,61 +7,69 @@ import {
   Pill,
 } from './components/DocsPage';
 
-<Meta title="Start/Introduction" />
+<Meta title="Start/Einführung" id="start-introduction" />
 
 <DocsPage
-  section="Documentation Hub"
-  title="Event Coordination System"
-  summary="Storybook is now the internal documentation surface for ECS. This first pass captures the product intent from the PRD and the backend that currently exists in the repository."
-  status="Baseline"
+  section="Dokumentationszentrale"
+  title="ECS-Dokumentationszentrale"
+  summary="Storybook ist jetzt die interne Dokumentationsoberfläche für ECS. Der erste Stand bündelt die Produktlogik für externe Event-Teilnahmen und den aktuell im Repository vorhandenen Backend-Umfang."
+  status="Basis"
 >
   <DocGrid columns="three">
-    <DocCard kicker="Product" title="How ECS should be used">
+    <DocCard kicker="Produkt" title="Wie ECS genutzt werden soll">
       <p>
-        The product manual explains the operating model: who creates events,
-        who applies, who approves, and how follow-up work gets tracked.
+        Das Produkthandbuch beschreibt den operativen Ablauf: wer externe
+        Events erfasst, wer eine Teilnahme vorschlägt, wer entscheidet und wie
+        Folgearbeit sichtbar bleibt.
       </p>
-      <Pill tone="success">Product manual in sidebar</Pill>
+      <Pill tone="success">Produkthandbuch in der Sidebar</Pill>
     </DocCard>
-    <DocCard kicker="Backend" title="What is implemented today">
+    <DocCard kicker="Backend" title="Was heute implementiert ist">
       <p>
-        The backend pages map the current Fastify routes, Drizzle data model,
-        permissions, required environment variables, and local run commands.
+        Die Backend-Seiten bilden Fastify-Routen, Drizzle-Datenmodell,
+        Berechtigungen, Umgebungsvariablen und lokale Startbefehle ab.
       </p>
-      <Pill tone="success">API and architecture documented</Pill>
+      <Pill tone="success">API und Architektur dokumentiert</Pill>
     </DocCard>
-    <DocCard kicker="Workflow" title="How to keep this current">
+    <DocCard kicker="Pflege" title="Wie die Doku aktuell bleibt">
       <p>
-        Treat Storybook as the internal handbook. Update the docs whenever
-        route contracts, permissions, or core product flows change.
+        Storybook ist das interne Handbuch. Wenn sich Routen, Rechte oder
+        Kernabläufe der externen Event-Teilnahme ändern, muss diese Doku im
+        selben Schritt mitgezogen werden.
       </p>
-      <Pill>Docs live in <code>src/docs</code></Pill>
+      <Pill>Doku lebt unter <code>src/docs</code></Pill>
     </DocCard>
   </DocGrid>
 
-  <Callout title="What this documentation set covers">
+  <Callout title="Was dieser Dokumentationsstand abdeckt">
     <p>
-      It intentionally starts with two areas: the overall product manual and
-      the backend. UI component stories can be added later alongside these
-      manual pages without changing the Storybook setup.
+      Der Fokus liegt bewusst auf zwei Bereichen: dem übergreifenden
+      Produkthandbuch und dem Backend. UI-Komponentenstories können später
+      daneben ergänzt werden, ohne das Setup erneut anzufassen.
     </p>
   </Callout>
 </DocsPage>
 
-## Current sidebar structure
+## Aktuelle Seitenstruktur
 
-- `Start`: scope and orientation for the documentation space
-- `Product`: why ECS exists, who uses it, and the standard operating rhythm
-- `Backend`: architecture, API surface, roles, permissions, and local runbook
+- `Start`: Einstieg, Scope und Pflegehinweise für die Dokumentationsfläche
+- `Produkt`: Produktlogik, Rollen, Kernobjekte und gewünschter Betriebsablauf
+- `Backend`: Architektur, API-Oberfläche, Berechtigungen und Runbook
 
-## Source of truth
+## Quellenlage
 
-- Product intent comes from the project PRD in the repository root.
-- Backend details come from the current code under `backend/src`.
-- This Storybook instance should describe the current system, not an idealized future state.
+- Die Produktabsicht kommt aus dem PRD im Repository-Root.
+- Die Backend-Details kommen direkt aus `backend/src`.
+- Dieses Storybook soll den tatsächlichen Ist-Zustand beschreiben, nicht ein Wunschbild.
 
-## Suggested next documentation increments
+## Nächste sinnvolle Ausbaustufen
 
-1. Add UI component stories once the real frontend replaces the Vite starter screen.
-2. Add sequence diagrams for event intake, approvals, and reminder handling.
-3. Add integration notes for deployment, database migrations, and auth token rotation.
+1. Reale UI-Komponentenstories ergänzen, sobald das Frontend über den Starterzustand hinausgewachsen ist.
+2. Sequenzdiagramme für Intake, Freigaben, Erinnerungen und Agent-Vorschläge ergänzen.
+3. Betriebsdokumentation für Deployment, Migrationen und Token-Rotation ergänzen.
+
+## Qualitätssicherung
+
+- `npm run docs:audit` prüft Drift zwischen Backend-Code und Dokumentation.
+- `npm run docs:check` kombiniert Audit und produktiven Storybook-Build.
+- Der CI-Workflow im Repository führt denselben Docs-Check bei Pushes und Pull Requests aus.

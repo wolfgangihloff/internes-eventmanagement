@@ -1,7 +1,7 @@
 import { pgTable, uuid, text, timestamp, integer, index, pgEnum } from 'drizzle-orm/pg-core';
-import { users } from './users.js';
-import { events } from './events.js';
-import { checklistTemplateItems } from './checklist-templates.js';
+import { users } from './users';
+import { events } from './events';
+import { checklistTemplateItems } from './checklist-templates';
 
 export const taskStatusEnum = pgEnum('task_status', [
   'pending',

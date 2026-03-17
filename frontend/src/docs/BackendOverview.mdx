@@ -1,0 +1,109 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  DocCard,
+  DocGrid,
+  DocsPage,
+  DocTable,
+} from './components/DocsPage';
+import {
+  backendDataModelRows,
+  backendDomainRows,
+  backendEnvVarRows,
+} from './content/docs-data.js';
+
+<Meta title="Backend/Überblick" id="backend-overview" />
+
+<DocsPage
+  section="Backend"
+  title="Fastify-API für externe Event-Teilnahmen"
+  summary="Das aktuelle Backend ist ein TypeScript-Service auf Basis von Fastify, JWT-Authentifizierung, PostgreSQL über Drizzle ORM und Fachmodulen für Event-Intake, Teilnahmen, Aufgaben, Erinnerungen, Kommunikation, Kalenderbezüge und Agent-Vorschläge."
+  status="Am Repository ausgerichtet"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="HTTP" title="Fastify-Service">
+      <p>
+        Die App stellt <code>GET /health</code> bereit und mountet alle
+        Fachrouten unter <code>/api/v1</code>. Eingaben werden direkt in den
+        Route-Modulen mit Zod validiert.
+      </p>
+    </DocCard>
+    <DocCard kicker="Persistenz" title="PostgreSQL über Drizzle">
+      <p>
+        Die Fachdaten liegen in <code>backend/src/db/schema</code>. Services
+        arbeiten schlank auf dem Datenmodell und schreiben bei relevanten
+        Änderungen Audit-Einträge.
+      </p>
+    </DocCard>
+    <DocCard kicker="Zugriff" title="JWT plus Refresh-Cookie">
+      <p>
+        Login erzeugt ein JWT-Access-Token und ein HTTP-only-Refresh-Cookie.
+        Geschützte Routen nutzen Fastify-Pre-Handler für Authentifizierung und
+        Berechtigungsprüfung.
+      </p>
+    </DocCard>
+  </DocGrid>
+</DocsPage>
+
+## Request-Fluss
+
+1. `buildApp()` verdrahtet CORS, Cookies, `@fastify/sensible`, Error-Handling und Route-Registrierung.
+2. Requests landen in den Route-Modulen unter `backend/src/routes`.
+3. Parameter und Bodies werden per Zod geprüft.
+4. `authenticate` und `requirePermission(...)` schützen sensible Operationen.
+5. Services führen die Datenbankarbeit aus und schreiben bei Bedarf in das Audit-Log.
+
+## Fachmodule
+
+<DocTable
+  columns={['Bereich', 'Hauptrouten', 'Verantwortung']}
+  rows={backendDomainRows.map((row) => [row.area, <code>{row.prefix}</code>, row.responsibility])}
+/>
+
+## Datenmodell
+
+<DocTable
+  columns={['Tabelle / Aggregat', 'Zweck']}
+  rows={backendDataModelRows.map((row) => [<code>{row.table}</code>, row.purpose])}
+/>
+
+## Konfiguration
+
+<DocTable
+  columns={['Variable', 'Pflicht', 'Zweck']}
+  rows={backendEnvVarRows.map((row) => [<code>{row.variable}</code>, row.required, row.purpose])}
+/>
+
+## Lokales Runbook
+
+```bash
+npm --prefix backend install
+npm --prefix frontend install
+
+npm run backend:dev
+npm run storybook
+npm run docs:check
+```
+
+## Relevante Umsetzungslücken
+
+<Callout title="Worauf man aktuell achten sollte" tone="warning">
+  <ul>
+    <li>
+      `participation.service.confirm(...)` existiert, aber es gibt weiterhin
+      keine Route, die diesen Schritt öffentlich anbietet.
+    </li>
+    <li>
+      Agent-Vorschläge sind jetzt als API vorhanden, die Generierung schlägt
+      ohne `ANTHROPIC_API_KEY` jedoch hart fehl.
+    </li>
+    <li>
+      `bullmq` und `ioredis` sind installiert, aber es gibt noch keinen
+      Worker- oder Queue-Startpunkt im Backend.
+    </li>
+    <li>
+      `recomputeForEvent(...)` existiert, wird bei Event-Updates derzeit aber
+      noch nicht automatisch aufgerufen.
+    </li>
+  </ul>
+</Callout>

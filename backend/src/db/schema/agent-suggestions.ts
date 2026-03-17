@@ -1,6 +1,6 @@
 import { pgTable, uuid, text, timestamp, jsonb, index, pgEnum } from 'drizzle-orm/pg-core';
-import { users } from './users.js';
-import { events } from './events.js';
+import { users } from './users';
+import { events } from './events';
 
 export const suggestionStatusEnum = pgEnum('suggestion_status', [
   'pending',

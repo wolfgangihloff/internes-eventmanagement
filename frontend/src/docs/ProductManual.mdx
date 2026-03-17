@@ -1,0 +1,115 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  DocCard,
+  DocGrid,
+  DocsPage,
+  DocTable,
+} from './components/DocsPage';
+import {
+  productLifecycleRows,
+  productObjectRows,
+  productUserRows,
+} from './content/docs-data.js';
+
+<Meta title="Produkt/Produkthandbuch" id="product-product-manual" />
+
+<DocsPage
+  section="Produkthandbuch"
+  title="Teilnahme an externen Events strukturiert koordinieren"
+  summary="ECS soll verstreute E-Mails, Tabellen und implizites Abstimmungswissen durch einen einzigen Ablauf für Auswahl, Freigabe, Vorbereitung, Teilnahme und Nachbereitung externer Events ersetzen."
+  status="Mit PRD abgeglichen"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="Warum" title="Koordination ist das eigentliche Produkt">
+      <p>
+        ECS ist nicht nur Event-Speicherung. Das System bündelt Freigaben,
+        Zuständigkeiten, Erinnerungen, Kommunikation und Nachbereitung rund um
+        jede externe Event-Teilnahme.
+      </p>
+    </DocCard>
+    <DocCard kicker="Kernobjekte" title="Alles hängt am Event">
+      <p>
+        Das Event ist das Zentrum. Teilnahmen, Aufgaben, Erinnerungen,
+        Kommunikation, Kalendereinträge und Audit-Historie referenzieren diesen
+        Teilnahme-Lebenszyklus.
+      </p>
+    </DocCard>
+    <DocCard kicker="Zielbild" title="Weniger manuelle Abstimmung">
+      <p>
+        Gewünscht sind weniger Koordinationsaufwand, weniger verpasste Fristen
+        und deutlich klarere Verantwortung zwischen Marketing, Management und
+        Mitarbeitenden.
+      </p>
+    </DocCard>
+  </DocGrid>
+</DocsPage>
+
+## Nutzergruppen
+
+<DocTable
+  columns={['Rolle', 'Kernverantwortung', 'Typische Aktionen']}
+  rows={productUserRows.map((row) => [row.role, row.responsibility, row.actions])}
+/>
+
+## Zentrale Objekte
+
+<DocTable
+  columns={['Objekt', 'Bedeutung in ECS']}
+  rows={productObjectRows.map((row) => [row.object, row.meaning])}
+/>
+
+## Event-Lebenszyklus
+
+<DocTable
+  columns={['Status', 'Bedeutung', 'Typischer Owner']}
+  rows={productLifecycleRows.map((row) => [<code>{row.stage}</code>, row.meaning, row.owner])}
+/>
+
+## Standardablauf
+
+1. Ein Event mit Titel und externer Quelle anlegen oder vorschlagen.
+2. Das Event intern prüfen und in einen freigegebenen Zustand überführen.
+3. Bewerbungen einsammeln und Teilnahmeentscheidungen treffen.
+4. Vorlagen anwenden, Aufgaben zuweisen, Reise und Gesprächstermine vorbereiten und Kalenderarbeit sichtbar machen.
+5. Am Event teilnehmen und Nachberichte oder Folgeaktionen so lange sichtbar halten, bis sie erledigt sind.
+
+## Produktprinzipien
+
+- Ein Ort für das vollständige operative Bild eines Events.
+- Gemeint ist immer die Teilnahme an einem externen Event, nicht dessen Durchführung durch die eigene Firma.
+- Kein versteckter Zustand: Freigaben, offene Arbeit, Erinnerungen und Kommunikation bleiben sichtbar.
+- Schnelle Kernaktionen: bewerben, genehmigen, zuweisen, abschließen oder erinnern.
+- Nachvollziehbarkeit: relevante Änderungen müssen erklärbar und prüfbar bleiben.
+
+## MVP-Grenze
+
+<DocGrid>
+  <DocCard kicker="Enthalten" title="Aktueller Soll-Umfang für das MVP">
+    <ul>
+      <li>Event-CRUD für externe Messen und Branchenevents</li>
+      <li>Rollenabhängiger Teilnahmeworkflow</li>
+      <li>Checklisten-Vorlagen und Aufgabenverteilung</li>
+      <li>Erinnerungen für Fristen, Logistik und Nachbereitung</li>
+      <li>Kalender-Tracking und Kommunikationshistorie</li>
+      <li>Audit-Logging und erste Agent-Vorschläge</li>
+    </ul>
+  </DocCard>
+  <DocCard kicker="Später" title="Explizit nicht Teil des ersten Standes">
+    <ul>
+      <li>Tiefe Zwei-Wege-Kalendersynchronisation</li>
+      <li>Reise- oder Buchungsintegrationen</li>
+      <li>Vollautonome Agent-Ausführung ohne Freigabe</li>
+      <li>CRM- oder Ticketing-Integrationen</li>
+    </ul>
+  </DocCard>
+</DocGrid>
+
+<Callout title="Praktische Lesart des Produkts">
+  <p>
+    ECS sollte daran gemessen werden, ob eine externe Event-Teilnahme besser
+    vorbereitbar, nachvollziehbar und nachbearbeitbar wird. Wenn eine Änderung
+    keine bessere Koordination der Teilnahme erzeugt, ist sie wahrscheinlich
+    nicht produktrelevant.
+  </p>
+</Callout>

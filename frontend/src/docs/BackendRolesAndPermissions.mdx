@@ -1,0 +1,69 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  CodeList,
+  DocCard,
+  DocGrid,
+  DocsPage,
+  DocTable,
+} from './components/DocsPage';
+import { backendPermissionRows } from './content/docs-data.js';
+
+<Meta title="Backend/Rollen und Berechtigungen" id="backend-roles-and-permissions" />
+
+<DocsPage
+  section="Backend"
+  title="Rollen und Berechtigungen"
+  summary="Die Autorisierung ist rollenbasiert und wird über Fastify-Pre-Handler durchgesetzt. Die Matrix unten entspricht der aktuellen `PERMISSIONS`-Definition im Backend."
+  status="Aktuelle Zugriffsregeln"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="Mitarbeitende" title="Verbrauchen und abschließen">
+      <p>
+        Mitarbeitende können Events lesen, sich bewerben, eigene Aufgaben sehen
+        und operative Arbeit abschließen.
+      </p>
+    </DocCard>
+    <DocCard kicker="Manager" title="Entscheiden und koordinieren">
+      <p>
+        Manager genehmigen Teilnahmen, pflegen Erinnerungen und Kalenderbezüge,
+        versenden Kommunikation, schlagen externe Events vor und bewegen
+        vorgeschlagene Events in freigegebene Zustände.
+      </p>
+    </DocCard>
+    <DocCard kicker="Event-Admin" title="Das System betreiben">
+      <p>
+        Event-Admins haben die breiteste Berechtigungsspanne, inklusive
+        Löschen, Vorlagenverwaltung, vollständiger Event-Planung und
+        administrativen Steuerungen.
+      </p>
+    </DocCard>
+  </DocGrid>
+</DocsPage>
+
+## Berechtigungsmatrix
+
+<DocTable
+  columns={['Berechtigung', 'Erlaubte Rollen']}
+  rows={backendPermissionRows.map((row) => [
+    <code>{row.permission}</code>,
+    <CodeList items={row.roles} />,
+  ])}
+/>
+
+## Praktische Lesart
+
+- Marketing darf Event-Stammdaten anlegen und pflegen, entscheidet aber nicht über Teilnahmen.
+- Manager bilden die operative Freigabeschicht für Bewerbungen, Vorschläge und Folgekoordination.
+- Mitarbeitende nehmen vor allem als Antragsteller und Aufgabeninhaber am Ablauf teil.
+- Event-Admins tragen die breiteste Systemverantwortung und halten den gesamten Prozess steuerbar.
+
+<Callout title="Wichtige Nuance" tone="warning">
+  <p>
+    `event:propose` greift direkt auf `POST /events`, wenn ein Eintrag als
+    `proposed` entsteht. Das Rollenmodell ist dennoch breiter als die heutige
+    API: `task:assign`, `audit:read`, `user:manage` und `team:manage` werden
+    noch nicht vollständig durch eigene Routen oder dedizierte Oberflächen
+    abgebildet.
+  </p>
+</Callout>

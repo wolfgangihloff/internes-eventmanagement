@@ -1,5 +1,5 @@
 import { pgTable, uuid, text, timestamp, index, pgEnum } from 'drizzle-orm/pg-core';
-import { users } from './users.js';
+import { users } from './users';
 
 export const eventStatusEnum = pgEnum('event_status', [
   'draft',

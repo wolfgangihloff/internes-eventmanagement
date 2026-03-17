@@ -1,5 +1,5 @@
 import { pgTable, uuid, text, boolean, timestamp, integer } from 'drizzle-orm/pg-core';
-import { users } from './users.js';
+import { users } from './users';
 
 export const checklistTemplates = pgTable('checklist_templates', {
   id: uuid('id').primaryKey().defaultRandom(),

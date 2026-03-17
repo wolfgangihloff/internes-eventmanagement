@@ -1,0 +1,105 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  CodeList,
+  DocCard,
+  DocGrid,
+  DocsPage,
+  DocTable,
+} from './components/DocsPage';
+import {
+  backendRouteSections,
+  backendStandaloneRoutes,
+  backendTransitionRows,
+} from './content/docs-data.js';
+
+<Meta title="Backend/API-Surface" id="backend-api-surface" />
+
+<DocsPage
+  section="Backend"
+  title="API-Oberfläche"
+  summary="Alle Fachrouten liegen unter `/api/v1`. `GET /health` bleibt als separate Systemroute bestehen. Die folgende Übersicht bildet die tatsächlichen Fastify-Routen im Repository ab."
+  status="Aktuelle Routenkarte"
+>
+  <DocGrid>
+    <DocCard kicker="Einstieg" title="Basisrouten">
+      <p>
+        Die Fach-API hängt unter <code>/api/v1</code>. Der Health-Check bleibt
+        bewusst außerhalb davon, damit Infrastruktur und Deployments den Dienst
+        ohne Authentifizierung prüfen können.
+      </p>
+    </DocCard>
+    <DocCard kicker="Verträge" title="Validierung und Auth">
+      <p>
+        Request-Body und Parameter werden in den Route-Dateien mit Zod geparst.
+        Authentifizierung und Rollenprüfung laufen über Fastify-Pre-Handler.
+      </p>
+    </DocCard>
+  </DocGrid>
+</DocsPage>
+
+## System
+
+<DocTable
+  columns={['Methode', 'Pfad', 'Zugriff', 'Bedeutung']}
+  rows={backendStandaloneRoutes.map((row) => [
+    <code>{row.method}</code>,
+    <code>{row.path}</code>,
+    row.access,
+    row.summary,
+  ])}
+/>
+
+{backendRouteSections.map((section) => (
+  <div key={section.title}>
+    <h2>{section.title}</h2>
+    <DocTable
+      columns={['Methode', 'Pfad', 'Zugriff', 'Bedeutung']}
+      rows={section.rows.map((row) => [
+        <code>{row.method}</code>,
+        <code>{row.path}</code>,
+        row.access === 'Öffentlich' ||
+        row.access === 'Öffentlich mit Refresh-Cookie' ||
+        row.access.startsWith('Authentifiziert') ? (
+          row.access
+        ) : (
+          <CodeList items={row.access.split(', ')} />
+        ),
+        row.summary,
+      ])}
+    />
+  </div>
+))}
+
+## Event-Statuswechsel
+
+<DocTable
+  columns={['Von', 'Nach', 'Erlaubte Rollen']}
+  rows={backendTransitionRows.map((row) => [
+    <code>{row.from}</code>,
+    <code>{row.to}</code>,
+    <CodeList items={row.roles} />,
+  ])}
+/>
+
+<Callout title="Vertragsnotizen">
+  <ul>
+    <li>
+      Event-Erstellung erlaubt nur die Initialzustände `draft` und `proposed`.
+      Nutzer mit `event:create` landen standardmäßig in `draft`, Nutzer mit
+      reinem Vorschlagsrecht in `proposed`.
+    </li>
+    <li>
+      Event-Detailantworten liefern `availableTransitions`, berechnet aus den
+      Rollen des aufrufenden Nutzers.
+    </li>
+    <li>
+      Die Agent-Routen sind jetzt Teil der öffentlichen API und benötigen
+      `agent:suggestions`.
+    </li>
+    <li>
+      Aufgabenupdates laufen aktuell vollständig über `task:complete`, also
+      auch dann, wenn nur Metadaten statt des Status geändert werden.
+    </li>
+  </ul>
+</Callout>

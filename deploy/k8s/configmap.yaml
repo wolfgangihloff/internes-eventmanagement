@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: internes-eventmanagement-config
+  namespace: internes-eventmanagement
+data:
+  NODE_ENV: production
+  HOST: 0.0.0.0
+  PORT: "3000"
+  REDIS_URL: redis://redis:6379
