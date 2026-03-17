@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-03-17",
+  "summary": {
+    "hours": 745,
+    "activeDays": 60,
+    "projects": 55,
+    "since": "2026-01-01"
+  },
+  "tools": [
+    {
+      "id": "claude",
+      "name": "Claude Code",
+      "hours": 400.7,
+      "activeDays": 55,
+      "projects": 45,
+      "since": "2026-01-09"
+    },
+    {
+      "id": "codex",
+      "name": "Codex",
+      "hours": 344.3,
+      "activeDays": 48,
+      "projects": 29,
+      "since": "2026-01-13"
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab Duo",
+      "hours": 0,
+      "activeDays": 6,
+      "projects": 2,
+      "since": "2026-02-02"
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "hours": 0,
+      "activeDays": 2,
+      "projects": 0,
+      "since": "2026-02-05"
+    },
+    {
+      "id": "kiro",
+      "name": "Kiro",
+      "hours": 0,
+      "activeDays": 0,
+      "projects": 0,
+      "since": null
+    }
+  ],
+  "note": "Seit 2026-01-01 aus lokalen Session-Logs und Editor-Metadaten. Projekte als eindeutige Top-Level-Workspaces unter ~/workspace."
+}
