@@ -109,8 +109,8 @@ export const backendDomainRows = [
   },
   {
     area: 'Teilnahmen',
-    prefix: '/events/:eventId/participations',
-    responsibility: 'Bewerben, Entscheiden und Zurückziehen',
+    prefix: '/users/me/participations und /events/:eventId/participations',
+    responsibility: 'Eigene Teilnahmen ansehen sowie Bewerben, Entscheiden und Zurückziehen',
   },
   {
     area: 'Aufgaben',
@@ -261,6 +261,98 @@ export const infrastructureFirewallRows = [
     rule: '30000-32767/tcp',
     source: '10.20.0.0/16',
     reason: 'Interner NodePort-Traffic für den Hetzner Load Balancer.',
+  },
+];
+
+export const operationsWorkflowRows = [
+  {
+    workflow: 'CI',
+    trigger: 'push auf main, pull_request',
+    purpose: 'Backend-Tests plus Backend-/Frontend-Build als Grundabsicherung jeder Codeänderung.',
+  },
+  {
+    workflow: 'Docs Quality',
+    trigger: 'push auf main, pull_request',
+    purpose: 'Prüft mit docs:check, dass Storybook-Doku und Backend-Oberfläche nicht auseinanderlaufen.',
+  },
+  {
+    workflow: 'Deploy k3s',
+    trigger: 'push auf main, workflow_dispatch',
+    purpose: 'Baut Images, aktualisiert Secrets/Manifeste und rollt das System auf dem Hetzner-k3s-Cluster aus.',
+  },
+];
+
+export const operationsDeployStageRows = [
+  {
+    step: '1. Checkout und Tooling',
+    implementation: 'actions/checkout, setup-buildx, azure/setup-kubectl',
+    note: 'Stellt Runner-Grundlage für Build und Cluster-Zugriff bereit.',
+  },
+  {
+    step: '2. Container-Build',
+    implementation: 'Backend, Backend-Migrator und Frontend werden nach GHCR gebaut und gepusht',
+    note: 'Es werden sowohl latest- als auch SHA-Tags publiziert.',
+  },
+  {
+    step: '3. Cluster-Secret',
+    implementation: 'internes-eventmanagement-secrets wird aus GitHub-Secrets neu geschrieben',
+    note: 'Enthält Datenbank-Zugang, JWT-Secret und optional ANTHROPIC_API_KEY.',
+  },
+  {
+    step: '4. Base-Workloads',
+    implementation: 'kubectl apply -k deploy/k8s',
+    note: 'Aktualisiert Namespace-nahe Ressourcen, Deployments, Services, PostgreSQL und Redis.',
+  },
+  {
+    step: '5. Datenbank-Sync',
+    implementation: 'Job backend-migrate startet npm run db:push',
+    note: 'Aktuell Schema-Sync statt versionierter Migrationen, weil noch keine Drizzle-Migrationsdateien committed sind.',
+  },
+  {
+    step: '6. Ingress und TLS',
+    implementation: 'Ingress-Template wird mit Host/TLS-Secret gerendert und angewendet',
+    note: 'cert-manager erzeugt bzw. erneuert das Zertifikat über letsencrypt-prod.',
+  },
+  {
+    step: '7. Rollout-Wartephase',
+    implementation: 'kubectl rollout status für backend und frontend',
+    note: 'Sichert ab, dass der Workflow erst nach erfolgreichem Pod-Start grün wird.',
+  },
+];
+
+export const operationsReleaseRows = [
+  {
+    path: 'Standard-Release',
+    action: 'Änderungen nach main mergen oder direkt nach main pushen',
+    result: 'CI, Docs Quality und Deploy k3s laufen automatisch an.',
+  },
+  {
+    path: 'Manueller Deploy',
+    action: 'gh workflow run deploy-k3s.yml',
+    result: 'Startet den Deploy-Workflow ohne neuen Git-Commit.',
+  },
+  {
+    path: 'Verifikation',
+    action: 'gh run watch <run-id> sowie Health-Checks auf App und Storybook',
+    result: 'Bestätigt Build, Rollout und öffentliche Erreichbarkeit.',
+  },
+];
+
+export const operationsRiskRows = [
+  {
+    topic: 'latest statt pinning',
+    currentState: 'Deployments referenzieren Images mit dem Tag latest.',
+    impact: 'Pod-Restarts sind nicht in jedem Fall erzwungen, wenn sich nur das Image hinter latest ändert.',
+  },
+  {
+    topic: 'Migrationen',
+    currentState: 'Der Migrationsjob nutzt db:push.',
+    impact: 'Für die Demo pragmatisch, aber schwächer kontrolliert als echte versionierte Drizzle-Migrationen.',
+  },
+  {
+    topic: 'Single-Node-Plattform',
+    currentState: 'k3s läuft auf genau einem Host.',
+    impact: 'Node-Ausfall bedeutet aktuell Plattformausfall, auch wenn die Pipeline korrekt arbeitet.',
   },
 ];
 
@@ -449,6 +541,12 @@ export const backendRouteSections = [
   {
     title: 'Teilnahmen',
     rows: [
+      {
+        method: 'GET',
+        path: '/api/v1/users/me/participations',
+        access: 'Authentifiziert',
+        summary: 'Eigene Teilnahmen inklusive Event-Bezug auflisten',
+      },
       {
         method: 'GET',
         path: '/api/v1/events/:eventId/participations',

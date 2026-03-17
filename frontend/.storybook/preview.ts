@@ -16,7 +16,7 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['Start', 'Produkt', 'Backend', 'Infrastruktur', 'Backlog'],
+        order: ['Start', 'Produkt', 'Backend', 'Infrastruktur', 'Operations', 'Backlog'],
       },
     },
   },

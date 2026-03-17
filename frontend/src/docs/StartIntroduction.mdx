@@ -12,7 +12,7 @@ import {
 <DocsPage
   section="Dokumentationszentrale"
   title="ECS-Dokumentationszentrale"
-  summary="Storybook ist jetzt die interne Dokumentationsoberfläche für ECS. Der aktuelle Stand bündelt Produktlogik, Backend-Umfang, Infrastrukturentscheidungen und bewusst verschobene Betriebs-Epics."
+  summary="Storybook ist jetzt die interne Dokumentationsoberfläche für ECS. Der aktuelle Stand bündelt Produktlogik, Backend-Umfang, Infrastrukturentscheidungen, den Betriebsablauf für CI/CD und bewusst verschobene Betriebs-Epics."
   status="Basis"
 >
   <DocGrid columns="three">
@@ -39,6 +39,14 @@ import {
       </p>
       <Pill tone="success">Live-Deployment dokumentiert</Pill>
     </DocCard>
+    <DocCard kicker="Operations" title="Wie Änderungen live gehen">
+      <p>
+        Die Operations-Seite beschreibt die GitHub-Actions-Pipeline für CI/CD:
+        Checks bei Push und Pull Request, Image-Build nach GHCR, Datenbank-Sync
+        und Rollout nach k3s.
+      </p>
+      <Pill tone="success">CI/CD dokumentiert</Pill>
+    </DocCard>
     <DocCard kicker="Pflege" title="Wie die Doku aktuell bleibt">
       <p>
         Storybook ist das interne Handbuch. Wenn sich Routen, Rechte oder
@@ -51,9 +59,9 @@ import {
 
   <Callout title="Was dieser Dokumentationsstand abdeckt">
     <p>
-      Der Fokus liegt bewusst auf zwei Bereichen: dem übergreifenden
-      Produkthandbuch und dem Backend. UI-Komponentenstories können später
-      daneben ergänzt werden, ohne das Setup erneut anzufassen.
+      Der Fokus liegt bewusst auf den aktuell tragenden Ebenen: Produkt,
+      Backend, Infrastruktur und Operations. UI-Komponentenstories können
+      später daneben ergänzt werden, ohne das Setup erneut anzufassen.
     </p>
   </Callout>
 </DocsPage>
@@ -64,6 +72,7 @@ import {
 - `Produkt`: Produktlogik, Rollen, Kernobjekte und gewünschter Betriebsablauf
 - `Backend`: Architektur, API-Oberfläche, Berechtigungen und Runbook
 - `Infrastruktur`: Hetzner-Cloud-Auswahl, Region, VM-Typ, Netzwerk und Deploy-Basis
+- `Operations`: CI/CD-Pipeline, Release-Ablauf und Betriebsgrenzen des Deployments
 - `Backlog`: bewusst verschobene Betriebs-Epics für spätere Ausbaustufen
 
 ## Quellenlage
@@ -71,13 +80,14 @@ import {
 - Die Produktabsicht kommt aus dem PRD im Repository-Root.
 - Die Backend-Details kommen direkt aus `backend/src`.
 - Die Infrastrukturdetails kommen direkt aus `infra/terraform`, `infra/scripts` und den ausgerollten Cluster-Defaults.
+- Die Operations-Details kommen direkt aus `.github/workflows` und `deploy/k8s`.
 - Dieses Storybook soll den tatsächlichen Ist-Zustand beschreiben, nicht ein Wunschbild.
 
 ## Nächste sinnvolle Ausbaustufen
 
 1. Reale UI-Komponentenstories ergänzen, sobald das Frontend über den Starterzustand hinausgewachsen ist.
 2. Sequenzdiagramme für Intake, Freigaben, Erinnerungen und Agent-Vorschläge ergänzen.
-3. Betriebsdokumentation für Deployment, Migrationen und Token-Rotation ergänzen.
+3. Token-Rotation, Rollback und Störungsbilder im Operations-Bereich vertiefen.
 
 ## Qualitätssicherung
 

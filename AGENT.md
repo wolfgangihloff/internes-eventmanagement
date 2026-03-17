@@ -6,6 +6,8 @@ This file provides repository-specific guidance for coding agents working in thi
 
 - Use [`event_coordination_system_prd (1).md`](./event_coordination_system_prd%20%281%29.md) as the product source of truth.
 - Keep changes aligned with the ECS domain: external trade fairs and industry events, not generic internal training workflows.
+- **Storybook** (`frontend/src/docs/`) is the living documentation. Update relevant MDX pages when features change.
+- **Demo**: https://5.161.34.169.nip.io/login | **Storybook**: https://5.161.34.169.nip.io/storybook
 
 ## Core Rules
 
@@ -18,8 +20,8 @@ This file provides repository-specific guidance for coding agents working in thi
 
 - Before adding a new feature, check whether similar files or modules already exist and extend or consolidate them instead of duplicating patterns.
 - Remove obsolete, superseded, or no-longer-used files as part of the same change when it is safe to do so.
-- Update the relevant `README.md` files when project structure, setup steps, or developer workflows change.
-- Store longer-form project documentation in `docs/` instead of scattering ad hoc markdown files across the repository. Create `docs/` when a change needs that documentation and the directory does not exist yet.
+- Store longer-form project documentation in Storybook (`frontend/src/docs/`) as MDX pages.
+- Update the Storybook Lessons Learned page (`AgenticCoding.mdx`) with new patterns or pitfalls discovered during development.
 
 ## Domain Guardrails
 
@@ -39,17 +41,26 @@ This file provides repository-specific guidance for coding agents working in thi
 
 ### Backend
 
-- Stack: Fastify, Zod, Drizzle ORM, Vitest, ESM TypeScript
+- Stack: Fastify 5, Zod, Drizzle ORM, Vitest, ESM TypeScript
 - Validate request bodies at the route boundary with `zod`
 - Use the existing `AppError` subclasses for consistent API errors
-- Keep local TypeScript import paths using `.js` extensions
+- Keep local TypeScript import paths using `.js` extensions (except in `db/schema/` where drizzle-kit requires extensionless imports)
 - Reuse `authenticate` and `requirePermission(...)` for protected routes instead of ad hoc permission checks
+- New features follow: Schema → Service → Route → Tests
 
 ### Frontend
 
-- Stack: React 19, Vite, TypeScript
+- Stack: React 19, Vite, TypeScript, shadcn/ui, TanStack Query v5, Zustand (with persist)
 - Follow the existing project patterns before introducing new libraries or state-management approaches
 - Keep UI aligned with the PRD direction: professional, modern, restrained B2B styling
+- New features follow: Type → Hook → Component → Route wiring
+- Auth state is persisted in localStorage via Zustand `persist` middleware
+
+### Storybook
+
+- Docs-only setup under `frontend/src/docs/` (MDX pages)
+- Uses custom `DocsPage`, `DocCard`, `DocGrid`, `DocTable`, `Callout`, `Pill` components from `docs/components/`
+- Build with `npm run build-storybook`, served under `/storybook/` in production
 
 ## Verification
 
@@ -59,20 +70,24 @@ Run checks from the package directory you changed.
 
 ```bash
 cd backend
-npm run lint
-npm run format:check
-npm run typecheck
-npm run test
+npx tsc --noEmit
+CI=1 npx vitest run
 ```
-
-Use `npm run test`, not `npm run test:watch`, for non-interactive verification.
 
 ### Frontend
 
 ```bash
 cd frontend
-npm run lint
+npx tsc --noEmit
+npx eslint .
 npm run build
+```
+
+### Storybook
+
+```bash
+cd frontend
+npm run build-storybook
 ```
 
 If you change database schema or persistence logic, also consider whether Drizzle migration artifacts or schema commands are required.

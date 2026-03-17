@@ -1,0 +1,93 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  DocCard,
+  DocGrid,
+  DocsPage,
+  DocTable,
+} from './components/DocsPage';
+import {
+  operationsDeployStageRows,
+  operationsReleaseRows,
+  operationsRiskRows,
+  operationsWorkflowRows,
+} from './content/docs-data.js';
+
+<Meta title="Operations/CI-CD Pipeline" id="operations-ci-cd-pipeline" />
+
+<DocsPage
+  section="Operations"
+  title="CI/CD Pipeline"
+  summary="Der produktive Deploy nach Hetzner k3s läuft über GitHub Actions. Diese Seite beschreibt die tatsächlich aktive Pipeline von Commit über Build und Schema-Sync bis zum Rollout."
+  status="Live genutzt"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="CI" title="Checks vor dem Deploy">
+      <p>
+        Bei Pushes auf <code>main</code> und bei Pull Requests laufen die
+        Prüfpfade für Backend, Frontend und Dokumentation. Ziel ist, Fehler vor
+        dem eigentlichen Cluster-Rollout abzufangen.
+      </p>
+    </DocCard>
+    <DocCard kicker="CD" title="Deploy direkt aus GitHub">
+      <p>
+        Der Workflow <code>Deploy k3s</code> baut die Container, pusht sie nach
+        GHCR und wendet die Kubernetes-Ressourcen gegen den produktiven Cluster
+        an.
+      </p>
+    </DocCard>
+    <DocCard kicker="Datenbank" title="Schema-Sync im Pipeline-Lauf">
+      <p>
+        Vor dem finalen App-Rollout läuft ein dedizierter Migrationsjob. Im
+        aktuellen Stand nutzt er <code>db:push</code> als pragmatischen
+        Bootstrap-Mechanismus.
+      </p>
+    </DocCard>
+  </DocGrid>
+</DocsPage>
+
+## Aktive Workflows
+
+<DocTable
+  columns={['Workflow', 'Trigger', 'Zweck']}
+  rows={operationsWorkflowRows.map((row) => [<code>{row.workflow}</code>, row.trigger, row.purpose])}
+/>
+
+## Deploy-Ablauf nach main
+
+<DocTable
+  columns={['Schritt', 'Technische Umsetzung', 'Einordnung']}
+  rows={operationsDeployStageRows.map((row) => [row.step, row.implementation, row.note])}
+/>
+
+## Release-Wege
+
+<DocTable
+  columns={['Pfad', 'Aktion', 'Ergebnis']}
+  rows={operationsReleaseRows.map((row) => [row.path, <code>{row.action}</code>, row.result])}
+/>
+
+<Callout title="Was heute einen neuen Deploy auslöst" tone="success">
+  <p>
+    Der Standardweg ist ein Merge oder Push nach <code>main</code>. Für
+    denselben Stand ohne neuen Commit kann der Deploy-Workflow manuell per{' '}
+    <code>workflow_dispatch</code> gestartet werden.
+  </p>
+</Callout>
+
+## Bekannte Betriebsgrenzen
+
+<DocTable
+  columns={['Thema', 'Ist-Zustand', 'Auswirkung']}
+  rows={operationsRiskRows.map((row) => [row.topic, row.currentState, row.impact])}
+/>
+
+<Callout title="Pragmatische Demo-Baseline" tone="warning">
+  <p>
+    Die Pipeline ist für die aktuelle Demo bewusst einfach gehalten: GitHub
+    hosted Runner, GHCR, ein Single-Node-k3s-Cluster und automatische
+    Ingress-/TLS-Aktualisierung. Für mehr Robustheit wären als nächste Schritte
+    SHA-pinned Deployments, echte Migrationen und ein sauberer Rollback-Pfad
+    sinnvoll.
+  </p>
+</Callout>
