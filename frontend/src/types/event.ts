@@ -25,6 +25,7 @@ export interface EventFilters {
   status?: EventStatus;
   industry?: string;
   search?: string;
+  upcoming?: boolean;
   page?: number;
   pageSize?: number;
 }

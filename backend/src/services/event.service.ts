@@ -1,4 +1,4 @@
-import { eq, desc, and, ilike, inArray, SQL } from 'drizzle-orm';
+import { eq, desc, and, ilike, inArray, lte, gte, isNull, or, SQL } from 'drizzle-orm';
 import { db } from '../db/index.js';
 import { events } from '../db/schema/index.js';
 import { validateTransition, type EventStatus } from '../domain/event-machine.js';
@@ -41,6 +41,7 @@ interface EventFilters {
   status?: EventStatus;
   industry?: string;
   search?: string;
+  upcoming?: boolean;
   page?: number;
   pageSize?: number;
 }
@@ -59,6 +60,16 @@ export async function list(filters: EventFilters = {}) {
   }
   if (filters.search) {
     conditions.push(ilike(events.title, `%${filters.search}%`));
+  }
+  if (filters.upcoming) {
+    const now = new Date();
+    const in90Days = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
+    conditions.push(
+      or(
+        isNull(events.startsAt),
+        and(gte(events.startsAt, now), lte(events.startsAt, in90Days)),
+      )!,
+    );
   }
 
   const where = conditions.length > 0 ? and(...conditions) : undefined;

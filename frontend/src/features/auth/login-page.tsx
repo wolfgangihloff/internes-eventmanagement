@@ -44,7 +44,12 @@ export function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-background">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <div className="mb-2 text-2xl font-bold text-primary">ECS</div>
+          <div className="mb-2 flex items-center justify-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary">
+              <span className="text-base font-bold text-white">E</span>
+            </div>
+            <span className="text-lg font-semibold tracking-tight">Event Management</span>
+          </div>
           <CardTitle className="text-lg">Anmelden</CardTitle>
         </CardHeader>
         <CardContent>

@@ -11,6 +11,7 @@ storybook-static/
 !.env.example
 !backend/.env.example
 !deploy/.env.example
+tmp/
 
 # Logs
 *.log

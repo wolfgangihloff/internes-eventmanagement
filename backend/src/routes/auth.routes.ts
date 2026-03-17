@@ -62,7 +62,7 @@ export async function authRoutes(app: FastifyInstance) {
     { preHandler: [authenticate] },
     async (request, reply) => {
       await authService.logout(request.user.sessionId);
-      reply.clearCookie('refreshToken', { path: '/api/v1/auth' });
+      reply.clearCookie('refreshToken', { path: '/' });
       return { success: true };
     },
   );
@@ -81,7 +81,7 @@ function setRefreshCookie(reply: any, token: string) {
     httpOnly: true,
     secure: config.env === 'production',
     sameSite: 'lax',
-    path: '/api/v1/auth',
+    path: '/',
     maxAge: config.jwt.refreshExpiresIn,
   });
 }

@@ -63,7 +63,9 @@ export function ParticipationList({ eventId }: ParticipationListProps) {
                   className="flex items-center justify-between rounded-md border p-3"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium">{p.userId}</span>
+                    <span className="text-sm font-medium">
+                      {p.userDisplayName ?? p.userEmail ?? p.userId}
+                    </span>
                     <Badge variant={config.variant}>{config.label}</Badge>
                     {p.rationale && (
                       <span className="text-xs text-muted-foreground">"{p.rationale}"</span>

@@ -13,6 +13,15 @@ const decideSchema = z.object({
 });
 
 export async function participationRoutes(app: FastifyInstance) {
+  // My participations (with event data)
+  app.get(
+    '/users/me/participations',
+    { preHandler: [authenticate] },
+    async (request) => {
+      return participationService.listByUser(request.user.id);
+    },
+  );
+
   // List participations for an event
   app.get(
     '/events/:eventId/participations',

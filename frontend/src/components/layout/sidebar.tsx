@@ -29,9 +29,11 @@ export function Sidebar() {
   return (
     <aside className="flex h-screen w-60 flex-col border-r bg-card">
       {/* Logo */}
-      <div className="flex h-14 items-center border-b px-4">
-        <span className="text-lg font-bold text-primary">ECS</span>
-        <span className="ml-1 text-lg font-light text-muted-foreground">Events</span>
+      <div className="flex h-14 items-center gap-2.5 border-b px-4">
+        <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary">
+          <span className="text-sm font-bold text-white">E</span>
+        </div>
+        <span className="text-sm font-semibold tracking-tight">Event Management</span>
       </div>
 
       {/* Navigation */}

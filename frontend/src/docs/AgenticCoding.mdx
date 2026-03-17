@@ -1,0 +1,86 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  DocCard,
+  DocGrid,
+  DocsPage,
+  DocTable,
+  Pill,
+} from './components/DocsPage';
+
+<Meta title="Produkt/Agentic Coding — Lessons Learned" id="product-agentic-coding" />
+
+<DocsPage
+  section="Agentic Coding"
+  title="Lessons Learned aus der KI-gestützten Entwicklung"
+  summary="ECS wurde vollständig mit Claude Code (Agentic Coding) entwickelt. Diese Seite dokumentiert Erfahrungen, Muster und Fallstricke, damit künftige Epics schneller und zuverlässiger umgesetzt werden können."
+  status="Laufend aktualisiert"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="Ergebnis" title="Full-Stack in einer Session">
+      <p>
+        Backend (Fastify, Drizzle, JWT-Auth, RBAC, State Machine), Frontend
+        (React 19, shadcn/ui, TanStack Query) und Deployment-Konfig wurden
+        in wenigen Iterationsrunden fertiggestellt.
+      </p>
+    </DocCard>
+    <DocCard kicker="Schlüssel" title="Plan-First-Ansatz">
+      <p>
+        Ein detaillierter Implementierungsplan vor der ersten Codezeile hat
+        die Qualität und Konsistenz dramatisch verbessert. Der Plan dient als
+        lebende Referenz für den Agenten.
+      </p>
+    </DocCard>
+    <DocCard kicker="Vorteil" title="TDD-Workflow">
+      <p>
+        Tests vor jeder Code-Änderung ausführen und alle Checks (tsc, eslint,
+        vitest) nach jeder Änderung laufen lassen hält den Agenten auf Kurs.
+      </p>
+    </DocCard>
+  </DocGrid>
+</DocsPage>
+
+## Bewährte Muster
+
+<DocTable
+  columns={['Muster', 'Warum es funktioniert', 'Beispiel']}
+  rows={[
+    ['Plan-Datei pflegen', 'Der Agent verliert über lange Sessions Kontext. Eine Plan-Datei mit Architektur, Schema und Phasen gibt Orientierung.', 'CLAUDE.md, Plan-Mode in Claude Code'],
+    ['Checks nach jeder Änderung', 'Sofortiges Feedback verhindert, dass sich Fehler aufstauen. Immer tsc + eslint + vitest laufen lassen.', 'CI=1 npx vitest run'],
+    ['Kleine, abgeschlossene Schritte', 'Ein Feature pro Runde: Schema → Service → Route → Frontend-Hook → UI-Komponente → Tests. Nicht alles auf einmal.', 'Admin-Panel: Service → Route → Hook → Page'],
+    ['Explizite Fehlermeldungen', 'Deutsche Fehlertexte und klare Error-Klassen helfen dem Agenten, Probleme korrekt zu diagnostizieren.', 'AppError-Hierarchie mit Statuscodes'],
+    ['Konventionen in AGENT.md', 'Coding-Standards, Sprachpolicy und Verifikationsschritte als Datei, damit der Agent sie bei jeder Session liest.', 'AGENT.md im Repository-Root'],
+  ]}
+/>
+
+## Typische Fallstricke
+
+<DocTable
+  columns={['Problem', 'Ursache', 'Lösung']}
+  rows={[
+    ['drizzle-kit scheitert an .js-Imports', 'drizzle-kit verarbeitet Schema-Dateien als CJS und kann ESM-Pfade mit .js-Extension nicht auflösen.', 'Extensionless Imports in Schema-Dateien verwenden.'],
+    ['httpOnly Cookies funktionieren nicht durch Vite Proxy', 'Subdomains wie ecs.localhost haben Cookie-Einschränkungen im Browser. Set-Cookie wird nicht gespeichert.', 'Zustand persist mit localStorage für Dev verwenden. httpOnly Cookies für Production behalten.'],
+    ['React StrictMode feuert Effects doppelt', 'In Dev mountet React Komponenten zweimal. Async Effects wie Token-Refresh werden doppelt ausgeführt, wobei der erste den Token invalidiert.', 'Module-Level Guard-Flag oder persist statt Refresh-basierter Session-Wiederherstellung.'],
+    ['Fastify crasht bei leerem JSON Body', 'axios.post(url, null) sendet Content-Type: application/json mit leerem Body. Fastify wirft einen Parse-Error (500).', 'Immer {} statt null senden. Error-Handler für Fastify-eigene Errors erweitern.'],
+    ['Port-Kollisionen', 'Andere Projekte belegen Standard-Ports (z.B. 3000).', 'Port in .env konfigurierbar halten. Vor dem Start prüfen.'],
+    ['Container-Runtime-Unterschiede', 'Rancher Desktop nutzt containerd/nerdctl statt Docker/docker-compose.', 'nerdctl compose statt docker compose verwenden. In Doku dokumentieren.'],
+  ]}
+/>
+
+## Workflow-Empfehlung für neue Epics
+
+1. **PRD lesen und Plan erstellen** — Claude Code Plan-Mode nutzen, um Architekturentscheidungen, Schema-Änderungen und API-Erweiterungen vorab zu klären.
+2. **AGENT.md aktualisieren** — Neue Konventionen oder Domain-Regeln sofort festhalten.
+3. **Schema zuerst** — Drizzle-Schema anlegen, Migration pushen, dann Services und Routes bauen.
+4. **Backend komplett, dann Frontend** — API-Endpoints fertig testen, bevor die UI gebaut wird. Das vermeidet Ping-Pong zwischen Front- und Backend.
+5. **Checks als Gate** — Nach jedem Schritt: `npx tsc --noEmit && CI=1 npx vitest run && npx eslint src/`. Erst weiter, wenn alles grün ist.
+6. **Storybook-Doku mitziehen** — Neue Features in den relevanten MDX-Seiten dokumentieren.
+
+<Callout title="Kernregel für Agentic Coding">
+  <p>
+    Der Agent ist so gut wie sein Kontext. AGENT.md, Plan-Dateien und
+    Storybook-Dokumentation sind keine Extras — sie sind die Leitplanken, die
+    verhindern, dass der Agent in die falsche Richtung entwickelt. Jede
+    Investition in gute Kontextdokumentation zahlt sich mehrfach aus.
+  </p>
+</Callout>

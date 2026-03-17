@@ -22,6 +22,14 @@ export function errorHandler(
     });
   }
 
+  // Fastify content-type / JSON parse errors
+  if ('statusCode' in error && typeof error.statusCode === 'number' && error.statusCode < 500) {
+    return reply.status(error.statusCode).send({
+      error: 'BAD_REQUEST',
+      message: error.message,
+    });
+  }
+
   // Unknown errors
   reply.log.error(error);
   return reply.status(500).send({

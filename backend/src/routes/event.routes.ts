@@ -41,6 +41,7 @@ export async function eventRoutes(app: FastifyInstance) {
         status: query.status as EventStatus | undefined,
         industry: query.industry,
         search: query.search,
+        upcoming: query.upcoming === 'true',
         page: query.page ? Number(query.page) : undefined,
         pageSize: query.pageSize ? Number(query.pageSize) : undefined,
       });
