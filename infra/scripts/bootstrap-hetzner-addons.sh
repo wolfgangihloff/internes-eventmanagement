@@ -8,6 +8,8 @@ SSH_PRIVATE_KEY_PATH="${SSH_PRIVATE_KEY_PATH:-$HOME/.ssh/id_ed25519}"
 HCLOUD_TOKEN="${HCLOUD_TOKEN:-}"
 CCM_VERSION="${CCM_VERSION:-v1.30.1}"
 CSI_VERSION="${CSI_VERSION:-v2.20.0}"
+CERT_MANAGER_VERSION="${CERT_MANAGER_VERSION:-v1.20.0}"
+LETSENCRYPT_EMAIL="${LETSENCRYPT_EMAIL:-}"
 
 if [[ -z "${HCLOUD_TOKEN}" ]]; then
   echo "HCLOUD_TOKEN is required in the environment."
@@ -67,6 +69,7 @@ MANIFEST
 sudo k3s kubectl apply -f "https://github.com/hetznercloud/hcloud-cloud-controller-manager/releases/download/${CCM_VERSION}/ccm.yaml"
 
 helm repo add hcloud https://charts.hetzner.cloud
+helm repo add jetstack https://charts.jetstack.io
 helm repo update
 
 cat <<VALUES >/tmp/hcloud-csi-values.yaml
@@ -88,8 +91,36 @@ helm upgrade --install hcloud-csi hcloud/hcloud-csi \
   --version "${CSI_VERSION#v}" \
   -f /tmp/hcloud-csi-values.yaml
 
+helm upgrade --install cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version "${CERT_MANAGER_VERSION#v}" \
+  --set crds.enabled=true
+
 sudo k3s kubectl -n kube-system wait --for=condition=available deployment/hcloud-cloud-controller-manager --timeout=5m
 sudo k3s kubectl -n kube-system wait --for=condition=available deployment/hcloud-csi-controller --timeout=5m
+sudo k3s kubectl -n cert-manager wait --for=condition=available deployment/cert-manager --timeout=5m
+sudo k3s kubectl -n cert-manager wait --for=condition=available deployment/cert-manager-webhook --timeout=5m
+sudo k3s kubectl -n cert-manager wait --for=condition=available deployment/cert-manager-cainjector --timeout=5m
+
+if [[ -n "${LETSENCRYPT_EMAIL}" ]]; then
+  cat <<MANIFEST | sudo k3s kubectl apply -f -
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: ${LETSENCRYPT_EMAIL}
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+      - http01:
+          ingress:
+            ingressClassName: traefik
+MANIFEST
+fi
 EOF
 
-echo "Hetzner CCM and CSI bootstrap completed."
+echo "Hetzner CCM, CSI, and cert-manager bootstrap completed."

@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  DocCard,
+  DocGrid,
+  DocsPage,
+} from './components/DocsPage';
+
+<Meta title="Backlog/Epic Backup & Restore" id="backlog-backup-restore" />
+
+<DocsPage
+  section="Backlog Epic"
+  title="Backup & Restore fur PostgreSQL"
+  summary="Die Demo nutzt persistente Hetzner-Volumes, aber noch keine automatisierten Backups oder validierten Restore-Ablaufe."
+  status="Nicht umgesetzt"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="Ziel" title="Wiederherstellbarkeit sicherstellen">
+      <p>
+        Ein Ausfall oder Bedienfehler darf nicht zu dauerhaftem Datenverlust
+        fuhren. Backups mussen regelmassig erstellt, gelagert und testweise
+        wiederhergestellt werden.
+      </p>
+    </DocCard>
+    <DocCard kicker="Scope" title="Was diese Epic umfasst">
+      <ul>
+        <li>geplante PostgreSQL-Backups</li>
+        <li>Aufbewahrungs- und Rotationsregeln</li>
+        <li>Restore-Runbook mit Verantwortlichkeiten</li>
+        <li>periodische Restore-Tests</li>
+      </ul>
+    </DocCard>
+    <DocCard kicker="Nicht jetzt" title="Warum verschoben">
+      <p>
+        Fur die aktuelle Demo reicht ein einzelner StatefulSet-Stand mit
+        persistentem Volume. Betriebsabsicherung ist bewusst nachgelagert.
+      </p>
+    </DocCard>
+  </DocGrid>
+
+  <Callout title="Akzeptanzkriterien">
+    <ul>
+      <li>Backup-Frequenz und Retention sind festgelegt.</li>
+      <li>Backups liegen ausserhalb des Primar-Volumes.</li>
+      <li>Ein Restore wurde dokumentiert und erfolgreich geprobt.</li>
+    </ul>
+  </Callout>
+</DocsPage>

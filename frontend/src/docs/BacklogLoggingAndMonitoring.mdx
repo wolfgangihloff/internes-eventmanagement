@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  DocCard,
+  DocGrid,
+  DocsPage,
+} from './components/DocsPage';
+
+<Meta title="Backlog/Epic Logging & Monitoring" id="backlog-logging-monitoring" />
+
+<DocsPage
+  section="Backlog Epic"
+  title="Logging & Monitoring"
+  summary="Der Demo-Stand hat Healthchecks und Kubernetes-Rollout-Schutz, aber noch keine zentrale Beobachtbarkeit."
+  status="Nicht umgesetzt"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="Ziel" title="Zustand schnell verstehen">
+      <p>
+        Infrastruktur- und Applikationsprobleme sollen fruh erkannt und sauber
+        analysiert werden konnen.
+      </p>
+    </DocCard>
+    <DocCard kicker="Scope" title="Was diese Epic umfasst">
+      <ul>
+        <li>zentrale Log-Sammlung</li>
+        <li>Metriken fur k3s, Traefik, PostgreSQL und App</li>
+        <li>Dashboards fur Health, Latenz und Fehlerquoten</li>
+        <li>Alerts fur Ausfalle, Zertifikate und Speicherdruck</li>
+      </ul>
+    </DocCard>
+    <DocCard kicker="Nicht jetzt" title="Warum verschoben">
+      <p>
+        Fur eine Demo reicht die manuelle Sicht uber kubectl, GitHub Actions
+        und den Health-Endpunkt. Dauerhafte Beobachtbarkeit ist ein separater
+        Betriebsblock.
+      </p>
+    </DocCard>
+  </DocGrid>
+
+  <Callout title="Akzeptanzkriterien">
+    <ul>
+      <li>Logs sind zentral durchsuchbar.</li>
+      <li>Kernmetriken sind visualisiert.</li>
+      <li>Mindestens Basis-Alerts fur Verfugbarkeit und Zertifikate existieren.</li>
+    </ul>
+  </Callout>
+</DocsPage>

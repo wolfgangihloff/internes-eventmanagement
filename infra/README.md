@@ -5,7 +5,7 @@ This directory provisions the base Hetzner infrastructure for a single-node k3s 
 The flow is split on purpose:
 
 1. Terraform creates the server, firewall, network, and Hetzner SSH key.
-2. A local bootstrap script connects over SSH and installs the Hetzner CCM and CSI driver.
+2. A local bootstrap script connects over SSH and installs the Hetzner CCM, CSI driver, and optional cert-manager setup.
 3. A kubeconfig helper fetches the cluster config and can publish it to GitHub Actions.
 
 The Hetzner API token is not embedded into Terraform `user_data`, so it does not need to live in Terraform state.
@@ -13,7 +13,7 @@ The Hetzner API token is not embedded into Terraform `user_data`, so it does not
 ## Layout
 
 - `terraform/`: Hetzner infrastructure
-- `scripts/bootstrap-hetzner-addons.sh`: installs CCM and CSI after `terraform apply`
+- `scripts/bootstrap-hetzner-addons.sh`: installs CCM, CSI, and optional cert-manager after `terraform apply`
 - `scripts/fetch-kubeconfig.sh`: retrieves kubeconfig from the server
 - `scripts/publish-github-secrets.sh`: syncs low-risk repo configuration via `gh`
 
@@ -41,10 +41,12 @@ terraform init
 terraform apply
 
 cd ../..
-HCLOUD_TOKEN="$HCLOUD_TOKEN" ./infra/scripts/bootstrap-hetzner-addons.sh
+LETSENCRYPT_EMAIL="ops@example.com" HCLOUD_TOKEN="$HCLOUD_TOKEN" ./infra/scripts/bootstrap-hetzner-addons.sh
 ./infra/scripts/fetch-kubeconfig.sh
 ./infra/scripts/publish-github-secrets.sh
 ```
+
+If `LETSENCRYPT_EMAIL` is set, the bootstrap script also installs cert-manager and creates a `ClusterIssuer` named `letsencrypt-prod` for Traefik HTTP-01 certificates.
 
 ## GitHub sync
 

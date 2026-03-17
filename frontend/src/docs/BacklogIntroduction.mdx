@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  DocCard,
+  DocGrid,
+  DocsPage,
+  Pill,
+} from './components/DocsPage';
+
+<Meta title="Backlog/Ubersicht" id="backlog-overview" />
+
+<DocsPage
+  section="Backlog"
+  title="Bewusst verschobene Betriebs-Epics"
+  summary="Diese Seiten dokumentieren Themen, die fur die Demo bewusst nicht umgesetzt wurden, aber fur einen spateren produktiven Betrieb relevant bleiben."
+  status="Geplant"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="Epic" title="Backup & Restore">
+      <p>
+        Wiederherstellbare Datenhaltung fur PostgreSQL, inklusive klarer
+        Restore-Prozedur und regelmassiger Erfolgskontrolle.
+      </p>
+      <Pill tone="accent">Nicht Teil der Demo</Pill>
+    </DocCard>
+    <DocCard kicker="Epic" title="Logging & Monitoring">
+      <p>
+        Zentrale Logs, Metriken, Dashboards und Alerts fur Cluster,
+        Infrastruktur und Anwendung.
+      </p>
+      <Pill tone="accent">Nicht Teil der Demo</Pill>
+    </DocCard>
+    <DocCard kicker="Epic" title="KI-Funktionen">
+      <p>
+        Agentische Vorschlage und KI-gestutzte Unterstutzung inklusive
+        Betriebs- und Freigaberegeln.
+      </p>
+      <Pill tone="accent">Nicht Teil der Demo</Pill>
+    </DocCard>
+  </DocGrid>
+
+  <Callout title="Einordnung">
+    <p>
+      Der aktuelle Deployment-Stand ist fur Demo-Zwecke ausreichend. Diese
+      Epics definieren, was fur einen spateren, starker abgesicherten Betrieb
+      geplant werden sollte.
+    </p>
+  </Callout>
+</DocsPage>

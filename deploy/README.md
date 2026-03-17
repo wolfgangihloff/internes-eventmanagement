@@ -21,7 +21,7 @@ Before the manifests in `deploy/k8s/` can work in production, the cluster needs:
 3. Hetzner CSI installed with a storage class named `hcloud-volumes`.
 4. Traefik or another ingress controller available in-cluster.
 5. A DNS record pointing your app host to the ingress endpoint.
-6. Optional but recommended: `cert-manager` for automated TLS certificates.
+6. `cert-manager` with a `ClusterIssuer` named `letsencrypt-prod` if you want automated TLS certificates.
 7. A GitHub runner secret `KUBE_CONFIG_DATA` containing a base64-encoded kubeconfig for the cluster.
 8. Either public GHCR packages or a Kubernetes image pull secret for GHCR.
 
@@ -55,6 +55,8 @@ On `main`, `.github/workflows/deploy-k3s.yml` will:
 4. run the database sync job
 5. apply the ingress manifest with your configured host
 6. wait for frontend and backend rollouts
+
+If the cluster already has cert-manager plus the `letsencrypt-prod` `ClusterIssuer`, the ingress manifest will request and renew the TLS certificate automatically.
 
 ## Important database note
 
