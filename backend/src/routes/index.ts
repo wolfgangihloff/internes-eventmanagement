@@ -8,6 +8,7 @@ import { reminderRoutes } from './reminder.routes.js';
 import { calendarRoutes } from './calendar.routes.js';
 import { communicationRoutes } from './communication.routes.js';
 import { agentRoutes } from './agent.routes.js';
+import { userRoutes } from './user.routes.js';
 
 export async function routes(app: FastifyInstance) {
   app.register(authRoutes);
@@ -19,4 +20,5 @@ export async function routes(app: FastifyInstance) {
   app.register(calendarRoutes);
   app.register(communicationRoutes);
   app.register(agentRoutes);
+  app.register(userRoutes);
 }

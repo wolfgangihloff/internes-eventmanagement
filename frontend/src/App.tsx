@@ -7,6 +7,8 @@ import { DashboardPage } from '@/features/dashboard/dashboard-page';
 import { EventFeedPage } from '@/features/events/event-feed-page';
 import { EventDetailPage } from '@/features/events/event-detail-page';
 import { EventCreatePage } from '@/features/events/event-create-page';
+import { AdminUsersPage } from '@/features/admin/admin-users-page';
+import { RoleGuard } from '@/components/layout/role-guard';
 
 const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
@@ -18,6 +20,10 @@ const router = createBrowserRouter([
       { path: '/events', element: <EventFeedPage /> },
       { path: '/events/new', element: <EventCreatePage /> },
       { path: '/events/:eventId', element: <EventDetailPage /> },
+      {
+        element: <RoleGuard roles={['event_admin']} />,
+        children: [{ path: '/admin', element: <AdminUsersPage /> }],
+      },
     ],
   },
 ]);
