@@ -356,6 +356,74 @@ export const operationsRiskRows = [
   },
 ];
 
+export const frontendLayerRows = [
+  {
+    layer: 'Routing',
+    technology: 'createBrowserRouter',
+    responsibility:
+      'Login, geschützte Shell, Event-Ansichten und Admin-Bereich werden zentral in App.tsx verdrahtet.',
+  },
+  {
+    layer: 'Auth-Zustand',
+    technology: 'zustand + persist',
+    responsibility:
+      'user und accessToken werden im Browser gehalten; ProtectedLayout und RoleGuard lesen direkt daraus.',
+  },
+  {
+    layer: 'Datenzugriff',
+    technology: 'axios + TanStack Query',
+    responsibility:
+      'apiClient hängt Bearer-Token an, reagiert auf 401 mit Refresh und die Feature-Hooks kapseln Serverzugriffe.',
+  },
+  {
+    layer: 'Layout',
+    technology: 'AppShell + Sidebar',
+    responsibility:
+      'Die Shell trennt Navigation, rollenabhängige Menüpunkte und den Feature-Outlet.',
+  },
+  {
+    layer: 'UI-Bausteine',
+    technology: 'ui/* + feature-spezifische Komponenten',
+    responsibility:
+      'Shadcn-nahe Primitive und Feature-Komponenten bilden die eigentlichen Screens.',
+  },
+];
+
+export const frontendFeatureRows = [
+  {
+    area: 'Authentifizierung',
+    folder: 'features/auth',
+    responsibility:
+      'Login-Seite und Auth-Store für Session-Wiederherstellung im Browser.',
+  },
+  {
+    area: 'Dashboard',
+    folder: 'features/dashboard',
+    responsibility: 'Startpunkt nach Login und Überblick über offene Arbeit.',
+  },
+  {
+    area: 'Events',
+    folder: 'features/events',
+    responsibility: 'Feed, Detailansicht und Erstellungsformular für externe Events.',
+  },
+  {
+    area: 'Teilnahmen',
+    folder: 'features/participations',
+    responsibility: 'Teilnahme-Listen und Aktionen im Event-Kontext.',
+  },
+  {
+    area: 'Aufgaben',
+    folder: 'features/tasks',
+    responsibility: 'Aufgabenlisten und zugehörige Query-Hooks.',
+  },
+  {
+    area: 'Administration',
+    folder: 'features/admin',
+    responsibility:
+      'Benutzerverwaltung für event_admin inklusive Rollen und Aktivierung.',
+  },
+];
+
 export const backendDataModelRows = [
   {
     table: 'events',

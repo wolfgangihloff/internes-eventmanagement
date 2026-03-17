@@ -16,7 +16,22 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['Start', 'Produkt', 'Backend', 'Infrastruktur', 'Operations', 'Backlog'],
+        order: [
+          'Start',
+          ['Einführung'],
+          'Produkt',
+          ['Produkthandbuch', 'Szenarien & Akzeptanzkriterien', 'Agentic Coding — Lessons Learned'],
+          'Frontend',
+          ['Überblick'],
+          'Backend',
+          ['Überblick', 'API-Oberfläche', 'Rollen und Berechtigungen'],
+          'Infrastruktur',
+          ['Hetzner & k3s Baseline'],
+          'Operations',
+          ['CI-CD Pipeline'],
+          'Backlog',
+          ['Übersicht', 'Epic Backup & Restore', 'Epic Logging & Monitoring', 'Epic KI-Funktionen'],
+        ],
       },
     },
   },

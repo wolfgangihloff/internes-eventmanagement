@@ -1,4 +1,10 @@
-import type { ReactNode } from 'react';
+import {
+  Children,
+  Fragment,
+  cloneElement,
+  isValidElement,
+  type ReactNode,
+} from 'react';
 
 type GridColumns = 'two' | 'three';
 type CalloutTone = 'info' | 'success' | 'warning';
@@ -20,6 +26,8 @@ interface DocGridProps {
 interface DocCardProps {
   title: string;
   kicker?: string;
+  href?: string;
+  target?: string;
   children: ReactNode;
 }
 
@@ -71,14 +79,30 @@ export function DocGrid({ children, columns = 'two' }: DocGridProps) {
   );
 }
 
-export function DocCard({ title, kicker, children }: DocCardProps) {
-  return (
-    <section className="ecs-docs-card">
+export function DocCard({ title, kicker, href, target, children }: DocCardProps) {
+  const normalizedChildren = normalizeBlocks(children);
+  const content = (
+    <>
       {kicker ? <div className="ecs-docs-card-kicker">{kicker}</div> : null}
       <h2 className="ecs-docs-card-title">{title}</h2>
-      <div className="ecs-docs-card-body">{children}</div>
-    </section>
+      <div className="ecs-docs-card-body">{normalizedChildren}</div>
+    </>
   );
+
+  if (href) {
+    return (
+      <a
+        className="ecs-docs-card ecs-docs-card--link"
+        href={href}
+        target={target}
+        rel={target === '_blank' ? 'noreferrer' : undefined}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return <section className="ecs-docs-card">{content}</section>;
 }
 
 export function Callout({
@@ -86,10 +110,11 @@ export function Callout({
   tone = 'info',
   children,
 }: CalloutProps) {
+  const normalizedChildren = normalizeBlocks(children);
   return (
     <aside className={`ecs-docs-callout ecs-docs-callout--${tone}`}>
       <strong>{title}</strong>
-      <div>{children}</div>
+      <div>{normalizedChildren}</div>
     </aside>
   );
 }
@@ -137,4 +162,29 @@ export function DocTable({ columns, rows }: DocTableProps) {
       </table>
     </div>
   );
+}
+
+function normalizeBlocks(node: ReactNode): ReactNode {
+  if (Array.isArray(node)) {
+    return node.map((child, index) => (
+      <Fragment key={index}>{normalizeBlocks(child)}</Fragment>
+    ));
+  }
+
+  if (!isValidElement<{ children?: ReactNode }>(node)) {
+    return node;
+  }
+
+  const normalizedChildren = Children.toArray(node.props.children).map((child) =>
+    normalizeBlocks(child),
+  );
+
+  if (node.type === 'p' && normalizedChildren.length === 1) {
+    const [onlyChild] = normalizedChildren;
+    if (isValidElement(onlyChild) && onlyChild.type === 'p') {
+      return onlyChild;
+    }
+  }
+
+  return cloneElement(node, undefined, ...normalizedChildren);
 }

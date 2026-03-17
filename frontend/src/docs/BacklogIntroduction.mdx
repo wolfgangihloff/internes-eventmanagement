@@ -7,32 +7,31 @@ import {
   Pill,
 } from './components/DocsPage';
 
-<Meta title="Backlog/Ubersicht" id="backlog-overview" />
-
+<Meta title="Backlog/Übersicht" id="backlog-overview" />
 <DocsPage
   section="Backlog"
   title="Bewusst verschobene Betriebs-Epics"
-  summary="Diese Seiten dokumentieren Themen, die fur die Demo bewusst nicht umgesetzt wurden, aber fur einen spateren produktiven Betrieb relevant bleiben."
+  summary="Diese Seiten dokumentieren Themen, die für die Demo bewusst nicht umgesetzt wurden, aber für einen späteren produktiven Betrieb relevant bleiben."
   status="Geplant"
 >
   <DocGrid columns="three">
-    <DocCard kicker="Epic" title="Backup & Restore">
+    <DocCard kicker="Epic" title="Backup & Restore" href="./?path=/docs/backlog-epic-backup-restore--docs" target="_top">
       <p>
-        Wiederherstellbare Datenhaltung fur PostgreSQL, inklusive klarer
-        Restore-Prozedur und regelmassiger Erfolgskontrolle.
+        Wiederherstellbare Datenhaltung für PostgreSQL, inklusive klarer
+        Restore-Prozedur und regelmäßiger Erfolgskontrolle.
       </p>
       <Pill tone="accent">Nicht Teil der Demo</Pill>
     </DocCard>
-    <DocCard kicker="Epic" title="Logging & Monitoring">
+    <DocCard kicker="Epic" title="Logging & Monitoring" href="./?path=/docs/backlog-epic-logging-monitoring--docs" target="_top">
       <p>
-        Zentrale Logs, Metriken, Dashboards und Alerts fur Cluster,
+        Zentrale Logs, Metriken, Dashboards und Alerts für Cluster,
         Infrastruktur und Anwendung.
       </p>
       <Pill tone="accent">Nicht Teil der Demo</Pill>
     </DocCard>
-    <DocCard kicker="Epic" title="KI-Funktionen">
+    <DocCard kicker="Epic" title="KI-Funktionen" href="./?path=/docs/backlog-epic-ki-funktionen--docs" target="_top">
       <p>
-        Agentische Vorschlage und KI-gestutzte Unterstutzung inklusive
+        Agentische Vorschläge und KI-gestützte Unterstützung inklusive
         Betriebs- und Freigaberegeln.
       </p>
       <Pill tone="accent">Nicht Teil der Demo</Pill>
@@ -41,8 +40,8 @@ import {
 
   <Callout title="Einordnung">
     <p>
-      Der aktuelle Deployment-Stand ist fur Demo-Zwecke ausreichend. Diese
-      Epics definieren, was fur einen spateren, starker abgesicherten Betrieb
+      Der aktuelle Deployment-Stand ist für Demo-Zwecke ausreichend. Diese
+      Epics definieren, was für einen späteren, stärker abgesicherten Betrieb
       geplant werden sollte.
     </p>
   </Callout>

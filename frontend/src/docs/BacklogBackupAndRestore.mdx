@@ -10,15 +10,15 @@ import {
 
 <DocsPage
   section="Backlog Epic"
-  title="Backup & Restore fur PostgreSQL"
-  summary="Die Demo nutzt persistente Hetzner-Volumes, aber noch keine automatisierten Backups oder validierten Restore-Ablaufe."
+  title="Backup & Restore für PostgreSQL"
+  summary="Die Demo nutzt persistente Hetzner-Volumes, aber noch keine automatisierten Backups oder validierten Restore-Abläufe."
   status="Nicht umgesetzt"
 >
   <DocGrid columns="three">
     <DocCard kicker="Ziel" title="Wiederherstellbarkeit sicherstellen">
       <p>
         Ein Ausfall oder Bedienfehler darf nicht zu dauerhaftem Datenverlust
-        fuhren. Backups mussen regelmassig erstellt, gelagert und testweise
+        führen. Backups müssen regelmäßig erstellt, gelagert und testweise
         wiederhergestellt werden.
       </p>
     </DocCard>
@@ -32,7 +32,7 @@ import {
     </DocCard>
     <DocCard kicker="Nicht jetzt" title="Warum verschoben">
       <p>
-        Fur die aktuelle Demo reicht ein einzelner StatefulSet-Stand mit
+        Für die aktuelle Demo reicht ein einzelner StatefulSet-Stand mit
         persistentem Volume. Betriebsabsicherung ist bewusst nachgelagert.
       </p>
     </DocCard>
@@ -41,7 +41,7 @@ import {
   <Callout title="Akzeptanzkriterien">
     <ul>
       <li>Backup-Frequenz und Retention sind festgelegt.</li>
-      <li>Backups liegen ausserhalb des Primar-Volumes.</li>
+      <li>Backups liegen außerhalb des Primär-Volumes.</li>
       <li>Ein Restore wurde dokumentiert und erfolgreich geprobt.</li>
     </ul>
   </Callout>

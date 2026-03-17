@@ -1,5 +1,12 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import {
+  C4Arrow,
+  C4Boundary,
+  C4Diagram,
+  C4Node,
+  C4Row,
+} from './components/ArchitectureDiagram';
+import {
   Callout,
   DocCard,
   DocGrid,
@@ -44,6 +51,51 @@ import {
     </DocCard>
   </DocGrid>
 </DocsPage>
+
+## C4-Systemsicht
+
+<C4Diagram
+  level="C4 Level 2/3"
+  title="Backend als Container und Komponentenverbund"
+  summary="Die Fastify-API ist der zentrale Fachcontainer zwischen Browser-App, Datenhaltung und optionalem KI-Provider. Innerhalb des Containers sind Routen, Middleware und Services klar getrennt."
+>
+  <C4Row>
+    <C4Node
+      kind="Container"
+      title="React-Frontend"
+      description="Ruft die Fach-API über /api/v1 auf und sendet Access-Token plus Refresh-Cookie."
+    />
+    <C4Arrow label="HTTPS / JSON" />
+    <C4Boundary title="Backend-Container" subtitle="Fastify-Service auf Node.js">
+      <C4Node
+        kind="Komponente"
+        title="Route-Module"
+        description="Fastify-Routen mit Zod-Validierung für Auth, Events, Aufgaben, Teilnahmen und Admin-Funktionen."
+      />
+      <C4Node
+        kind="Komponente"
+        title="Auth- und Permission-Layer"
+        description="authenticate und requirePermission schützen sensible Pfade und setzen request.user."
+      />
+      <C4Node
+        kind="Komponente"
+        title="Services"
+        description="Kapseln Fachlogik, State-Machine-Übergänge, Session-Handling und Audit-Schreiben."
+      />
+      <C4Node
+        kind="Komponente"
+        title="Drizzle-Datenzugriff"
+        description="Spricht PostgreSQL über Schema-Definitionen und typsichere Queries an."
+      />
+    </C4Boundary>
+    <C4Arrow label="SQL / Redis / API" />
+    <C4Node
+      kind="Externe Systeme"
+      title="PostgreSQL, Redis, LLM"
+      description="Persistenz in PostgreSQL, vorbereitete Redis-Abhängigkeit und optionaler KI-Provider für Vorschläge."
+    />
+  </C4Row>
+</C4Diagram>
 
 ## Request-Fluss
 

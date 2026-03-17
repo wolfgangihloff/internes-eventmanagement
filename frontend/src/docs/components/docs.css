@@ -179,6 +179,22 @@
   padding: 1.25rem 1.25rem 1.15rem;
 }
 
+.ecs-docs-card--link {
+  color: inherit;
+  display: block;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.ecs-docs-card--link:hover {
+  border-color: rgba(12, 91, 99, 0.28);
+  box-shadow: 0 24px 46px rgba(12, 91, 99, 0.14);
+  transform: translateY(-2px);
+}
+
 .ecs-docs-card-kicker {
   color: #7d6140;
   font-size: 0.74rem;
@@ -258,6 +274,147 @@
 
 .ecs-docs-table-wrap {
   overflow-x: auto;
+}
+
+.ecs-c4-diagram {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0 1.4rem;
+  padding: 1.2rem;
+  background: rgba(255, 253, 249, 0.9);
+  border: 1px solid rgba(20, 33, 38, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(20, 33, 38, 0.08);
+}
+
+.ecs-c4-diagram-head {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.ecs-c4-diagram-level {
+  color: #7d6140;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ecs-c4-diagram-title {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.ecs-c4-diagram-summary {
+  margin: 0;
+  color: #465158;
+}
+
+.ecs-c4-diagram-body {
+  display: grid;
+  gap: 1rem;
+}
+
+.ecs-c4-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.ecs-c4-boundary {
+  display: grid;
+  gap: 0.85rem;
+  flex: 1 1 24rem;
+  min-width: 18rem;
+  padding: 0.95rem;
+  border: 2px dashed rgba(12, 91, 99, 0.25);
+  border-radius: 20px;
+  background: rgba(12, 91, 99, 0.04);
+}
+
+.ecs-c4-boundary-head {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.ecs-c4-boundary-head span {
+  color: #5a666d;
+  font-size: 0.9rem;
+}
+
+.ecs-c4-boundary-body {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.ecs-c4-node {
+  display: grid;
+  gap: 0.35rem;
+  flex: 1 1 12rem;
+  min-width: 12rem;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  background: #fffdf9;
+  border: 1px solid rgba(20, 33, 38, 0.1);
+}
+
+.ecs-c4-node-kind {
+  color: #0c5b63;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ecs-c4-node-title {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.ecs-c4-node-description {
+  margin: 0;
+  color: #465158;
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+.ecs-c4-arrow {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.25rem;
+  min-width: 4rem;
+  color: #0c5b63;
+  font-weight: 700;
+}
+
+.ecs-c4-arrow-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ecs-c4-arrow-glyph {
+  font-size: 1.35rem;
+}
+
+@media (max-width: 860px) {
+  .ecs-docs-grid--two,
+  .ecs-docs-grid--three {
+    grid-template-columns: 1fr;
+  }
+
+  .ecs-c4-arrow {
+    min-height: 2.5rem;
+    min-width: auto;
+    width: 100%;
+  }
+
+  .ecs-c4-arrow-glyph {
+    transform: rotate(90deg);
+  }
 }
 
 .ecs-docs-table {

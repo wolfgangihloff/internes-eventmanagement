@@ -97,7 +97,7 @@ import {
 
 **Ablauf:** Event erreicht die Vorbereitungsphase. System schlägt Checklisten-Items vor oder erstellt sie. Admins, Manager oder Teilnehmende erweitern die Checkliste.
 
-**Beispielaufgaben:** Tickets buchen, Hotel buchen, internen Kalendereintrag erstellen, Kundentermin-Eintrag erstellen, Standmaterial vorbereiten, Nachbericht schreiben.
+**Beispielaufgaben:** Tickets buchen, Hotel buchen, internen Kalendereintrag erstellen, externen Termineintrag erstellen, Standmaterial vorbereiten, Nachbericht schreiben.
 
 <DocTable
   columns={['Kriterium', 'Beschreibung']}
@@ -142,12 +142,12 @@ import {
 
 ## Szenario 8: Kalenderkoordination
 
-**Ablauf:** Event erfordert interne Planungssichtbarkeit und ggf. kundenseitige Kalenderkoordination. Kalenderreferenzen werden gespeichert, System erinnert an Erstellung/Aktualisierung.
+**Ablauf:** Event erfordert interne Planungssichtbarkeit und ggf. externe Kalenderkoordination. Kalenderreferenzen werden gespeichert, System erinnert an Erstellung oder Aktualisierung.
 
 <DocTable
   columns={['Kriterium', 'Beschreibung']}
   rows={[
-    ['Referenzen', 'System speichert Verweise auf internen und kundenseitigen Kalender'],
+    ['Referenzen', 'System speichert Verweise auf internen und externen Kalender'],
     ['Erinnerungen', 'Erinnerungslogik für beide Kalenderkontexte wird unterstützt'],
     ['Vorlagen', 'Kalender-Checklisten-Items können Teil wiederverwendbarer Vorlagen sein'],
     ['MVP-Grenze', 'Tiefe bidirektionale Synchronisation nicht im MVP, aber Erinnerung und Tracking schon'],

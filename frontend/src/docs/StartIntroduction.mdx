@@ -12,11 +12,11 @@ import {
 <DocsPage
   section="Dokumentationszentrale"
   title="ECS-Dokumentationszentrale"
-  summary="Storybook ist jetzt die interne Dokumentationsoberfläche für ECS. Der aktuelle Stand bündelt Produktlogik, Backend-Umfang, Infrastrukturentscheidungen, den Betriebsablauf für CI/CD und bewusst verschobene Betriebs-Epics."
+  summary="Storybook ist die interne Dokumentationsoberfläche für ECS. Der aktuelle Stand bündelt Produktlogik, Frontend- und Backend-Architektur, Infrastrukturentscheidungen, den Betriebsablauf für CI/CD und bewusst verschobene Betriebs-Epics."
   status="Basis"
 >
   <DocGrid columns="three">
-    <DocCard kicker="Produkt" title="Wie ECS genutzt werden soll">
+    <DocCard kicker="Produkt" title="Wie ECS genutzt werden soll" href="./?path=/docs/produkt-produkthandbuch--docs" target="_top">
       <p>
         Das Produkthandbuch beschreibt den operativen Ablauf: wer externe
         Events erfasst, wer eine Teilnahme vorschlägt, wer entscheidet und wie
@@ -24,14 +24,21 @@ import {
       </p>
       <Pill tone="success">Produkthandbuch in der Sidebar</Pill>
     </DocCard>
-    <DocCard kicker="Backend" title="Was heute implementiert ist">
+    <DocCard kicker="Frontend" title="Wie die React-App aufgebaut ist" href="./?path=/docs/frontend-%C3%BCberblick--docs" target="_top">
+      <p>
+        Die Frontend-Seite beschreibt Routing, Auth-Store, Query-Layer,
+        Feature-Module und die C4-Sicht auf Browser-App, API und Layout.
+      </p>
+      <Pill tone="success">Frontend-Architektur dokumentiert</Pill>
+    </DocCard>
+    <DocCard kicker="Backend" title="Was heute implementiert ist" href="./?path=/docs/backend-%C3%BCberblick--docs" target="_top">
       <p>
         Die Backend-Seiten bilden Fastify-Routen, Drizzle-Datenmodell,
         Berechtigungen, Umgebungsvariablen und lokale Startbefehle ab.
       </p>
       <Pill tone="success">API und Architektur dokumentiert</Pill>
     </DocCard>
-    <DocCard kicker="Infrastruktur" title="Wie ECS aktuell betrieben wird">
+    <DocCard kicker="Infrastruktur" title="Wie ECS aktuell betrieben wird" href="./?path=/docs/infrastruktur-hetzner-k3s-baseline--docs" target="_top">
       <p>
         Die Infrastruktur-Seite dokumentiert die gewählte Hetzner-Cloud-
         Baseline mit Region, VM-Typ, Netzwerk, Firewall, k3s, Load Balancer
@@ -39,13 +46,20 @@ import {
       </p>
       <Pill tone="success">Live-Deployment dokumentiert</Pill>
     </DocCard>
-    <DocCard kicker="Operations" title="Wie Änderungen live gehen">
+    <DocCard kicker="Operations" title="Wie Änderungen live gehen" href="./?path=/docs/operations-ci-cd-pipeline--docs" target="_top">
       <p>
         Die Operations-Seite beschreibt die GitHub-Actions-Pipeline für CI/CD:
         Checks bei Push und Pull Request, Image-Build nach GHCR, Datenbank-Sync
         und Rollout nach k3s.
       </p>
       <Pill tone="success">CI/CD dokumentiert</Pill>
+    </DocCard>
+    <DocCard kicker="Backlog" title="Was bewusst noch offen bleibt" href="./?path=/docs/backlog-%C3%BCbersicht--docs" target="_top">
+      <p>
+        Der Backlog-Bereich sammelt absichtlich verschobene Betriebs-Epics wie
+        Backup, Logging/Monitoring und KI-Funktionen in einer lesbaren Reihenfolge.
+      </p>
+      <Pill tone="accent">Nicht Teil der Demo</Pill>
     </DocCard>
     <DocCard kicker="Pflege" title="Wie die Doku aktuell bleibt">
       <p>
@@ -70,9 +84,7 @@ import {
 
 - `Start`: Einstieg, Scope und Pflegehinweise für die Dokumentationsfläche
 - `Produkt`: Produktlogik, Rollen, Kernobjekte und gewünschter Betriebsablauf
-  - `Produkthandbuch`: Rollen, Kernobjekte, Berechtigungen, Event-Lifecycle
-  - `Szenarien & Akzeptanzkriterien`: 11 Kernszenarien mit messbaren Akzeptanzkriterien
-  - `Agentic Coding — Lessons Learned`: Muster, Fallstricke und Workflow-Empfehlungen für KI-gestützte Entwicklung
+- `Frontend`: Browser-App, Routing, Datenfluss und C4-Sicht auf die React-Schicht
 - `Backend`: Architektur, API-Oberfläche, Berechtigungen und Runbook
 - `Infrastruktur`: Hetzner-Cloud-Auswahl, Region, VM-Typ, Netzwerk und Deploy-Basis
 - `Operations`: CI/CD-Pipeline, Release-Ablauf und Betriebsgrenzen des Deployments
@@ -81,6 +93,7 @@ import {
 ## Quellenlage
 
 - Die Produktabsicht ist in den Storybook-Seiten `Produkthandbuch` und `Szenarien & Akzeptanzkriterien` dokumentiert.
+- Die Frontend-Details kommen direkt aus `frontend/src`.
 - Die Backend-Details kommen direkt aus `backend/src`.
 - Die Infrastrukturdetails kommen direkt aus `infra/terraform`, `infra/scripts` und den ausgerollten Cluster-Defaults.
 - Die Operations-Details kommen direkt aus `.github/workflows` und `deploy/k8s`.

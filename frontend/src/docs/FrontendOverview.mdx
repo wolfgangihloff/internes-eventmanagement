@@ -1,0 +1,140 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  C4Arrow,
+  C4Boundary,
+  C4Diagram,
+  C4Node,
+  C4Row,
+} from './components/ArchitectureDiagram';
+import {
+  Callout,
+  DocCard,
+  DocGrid,
+  DocsPage,
+  DocTable,
+} from './components/DocsPage';
+import {
+  frontendFeatureRows,
+  frontendLayerRows,
+} from './content/docs-data.js';
+
+<Meta title="Frontend/Überblick" id="frontend-overview" />
+
+<DocsPage
+  section="Frontend"
+  title="React-Frontend für operative Event-Koordination"
+  summary="Das Frontend ist eine React-19-SPA mit React Router, TanStack Query, zustand und einem klaren Feature-Schnitt zwischen Auth, Event-Arbeit, Administration und Layout."
+  status="Am Repository ausgerichtet"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="Runtime" title="Browser-basierte SPA">
+      <p>
+        Das Frontend wird als statisches Vite-Bundle ausgeliefert. Routing,
+        Auth-Zustand und API-Aufrufe laufen komplett im Browser.
+      </p>
+    </DocCard>
+    <DocCard kicker="State" title="Query-Server-State plus lokaler Auth-Store">
+      <p>
+        Fachdaten kommen über TanStack Query. Auth-Daten liegen bewusst in
+        zustand mit Persistenz, damit Refresh und geschützte Navigation im
+        Demo-Setup robust bleiben.
+      </p>
+    </DocCard>
+    <DocCard kicker="Shell" title="Geschützte Navigation">
+      <p>
+        Login ist öffentlich, alle Fachseiten laufen unter ProtectedLayout.
+        Der Admin-Bereich wird zusätzlich über RoleGuard auf event_admin
+        eingeschränkt.
+      </p>
+    </DocCard>
+  </DocGrid>
+</DocsPage>
+
+## C4-Systemsicht
+
+<C4Diagram
+  level="C4 Level 2/3"
+  title="Frontend als Container und Browser-Komponentenverbund"
+  summary="Die React-App ist der Benutzerkontaktpunkt für Mitarbeitende, Manager und Event-Admins. Innerhalb des Frontend-Containers sind Routing, Auth, Query-Layer und Feature-Screens klar getrennt."
+>
+  <C4Row>
+    <C4Node
+      kind="Personen"
+      title="Mitarbeitende, Manager, Event-Admin"
+      description="Nutzen das System im Browser für Event-Suche, Bewerbungen, Freigaben, Aufgaben und Administration."
+    />
+    <C4Arrow label="Benutzen" />
+    <C4Boundary title="Frontend-Container" subtitle="React 19 + React Router + TanStack Query">
+      <C4Node
+        kind="Komponente"
+        title="Router + ProtectedLayout"
+        description="Definiert öffentliche und geschützte Seiten, leitet nach Login um und mountet die Shell."
+      />
+      <C4Node
+        kind="Komponente"
+        title="Auth Store + RoleGuard"
+        description="Hält user und accessToken im Browser und steuert Admin-Zugriffe über Rollen."
+      />
+      <C4Node
+        kind="Komponente"
+        title="Axios + Query Hooks"
+        description="apiClient kümmert sich um Bearer-Token und Refresh; Feature-Hooks kapseln Request-Details."
+      />
+      <C4Node
+        kind="Komponente"
+        title="Feature Screens"
+        description="Dashboard, Event-Feed, Event-Detail, Create-Formular und Admin-User-Management."
+      />
+    </C4Boundary>
+    <C4Arrow label="HTTPS / JSON" />
+    <C4Node
+      kind="Externer Container"
+      title="Fastify API"
+      description="Liefert Fachdaten unter /api/v1 und verarbeitet Auth, Rollen und Fachlogik."
+    />
+  </C4Row>
+</C4Diagram>
+
+## Frontend-Schichten
+
+<DocTable
+  columns={['Schicht', 'Technik', 'Verantwortung']}
+  rows={frontendLayerRows.map((row) => [row.layer, <code>{row.technology}</code>, row.responsibility])}
+/>
+
+## Feature-Zuschnitt
+
+<DocTable
+  columns={['Bereich', 'Ordner', 'Verantwortung']}
+  rows={frontendFeatureRows.map((row) => [row.area, <code>{row.folder}</code>, row.responsibility])}
+/>
+
+## Interaktionsfluss
+
+1. `main.tsx` bootet React und rendert `App`.
+2. `App.tsx` erstellt den Router und hängt den `QueryClientProvider` um die Anwendung.
+3. `ProtectedLayout` prüft, ob ein Nutzer im Auth-Store liegt.
+4. Feature-Hooks nutzen `apiClient` mit automatisch angehängtem Access-Token.
+5. Bei `401` versucht der Client einen Refresh; schlägt der fehl, erfolgt Logout und Redirect auf `/login`.
+
+## Relevante Grenzen
+
+<Callout title="Worauf man im Frontend aktuell achten sollte" tone="warning">
+  <ul>
+    <li>
+      Die Dokumentation deckt die Anwendungsarchitektur ab, nicht jede einzelne
+      UI-Komponente. Klassische Storybook-Component-Stories sind weiterhin nur
+      als Starter-Beispiele vorhanden.
+    </li>
+    <li>
+      Die Session-Wiederherstellung ist bewusst browserseitig mit `zustand`
+      modelliert. Das ist pragmatisch für die Demo, aber kein vollwertiges
+      Security-Konzept für höhere Anforderungen.
+    </li>
+    <li>
+      Rollenlogik existiert doppelt: als UI-Gates im Frontend und als
+      durchsetzende Autorisierung im Backend. Das Backend bleibt die letzte
+      Instanz.
+    </li>
+  </ul>
+</Callout>

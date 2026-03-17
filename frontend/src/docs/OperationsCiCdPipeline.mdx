@@ -1,5 +1,12 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import {
+  C4Arrow,
+  C4Boundary,
+  C4Diagram,
+  C4Node,
+  C4Row,
+} from './components/ArchitectureDiagram';
+import {
   Callout,
   DocCard,
   DocGrid,
@@ -45,6 +52,46 @@ import {
     </DocCard>
   </DocGrid>
 </DocsPage>
+
+## C4-Deployment-Sicht
+
+<C4Diagram
+  level="C4 Deployment"
+  title="CI/CD vom Commit bis zum laufenden Cluster"
+  summary="Die Delivery-Kette besteht aus GitHub als Quell- und Build-System, GHCR als Image-Registry und dem Hetzner-k3s-Cluster als Laufzeitumgebung."
+>
+  <C4Row>
+    <C4Node
+      kind="Person / System"
+      title="Entwickler + GitHub Repository"
+      description="Änderungen werden über Push oder Merge nach main wirksam und triggern die Workflows."
+    />
+    <C4Arrow label="Trigger" />
+    <C4Boundary title="GitHub Actions" subtitle="CI, Docs Quality, Deploy k3s">
+      <C4Node
+        kind="Pipeline"
+        title="Checks"
+        description="Backend-Tests, Frontend-Lint/Build und docs:check laufen vor dem eigentlichen Deploy."
+      />
+      <C4Node
+        kind="Pipeline"
+        title="Image-Build"
+        description="Backend, Migrator und Frontend werden gebaut und nach GHCR publiziert."
+      />
+      <C4Node
+        kind="Pipeline"
+        title="Cluster-Apply"
+        description="Secrets, Workloads, Migrationsjob und Ingress werden via kubectl gegen k3s angewendet."
+      />
+    </C4Boundary>
+    <C4Arrow label="Container / Manifeste" />
+    <C4Node
+      kind="Deployment Node"
+      title="Hetzner k3s"
+      description="Traefik, Frontend, Backend, PostgreSQL und Redis laufen auf dem Single-Node-Cluster."
+    />
+  </C4Row>
+</C4Diagram>
 
 ## Aktive Workflows
 
