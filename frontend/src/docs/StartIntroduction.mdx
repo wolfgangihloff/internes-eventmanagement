@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  DocCard,
+  DocGrid,
+  DocsPage,
+  Pill,
+} from './components/DocsPage';
+
+<Meta title="Start/Introduction" />
+
+<DocsPage
+  section="Documentation Hub"
+  title="Event Coordination System"
+  summary="Storybook is now the internal documentation surface for ECS. This first pass captures the product intent from the PRD and the backend that currently exists in the repository."
+  status="Baseline"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="Product" title="How ECS should be used">
+      <p>
+        The product manual explains the operating model: who creates events,
+        who applies, who approves, and how follow-up work gets tracked.
+      </p>
+      <Pill tone="success">Product manual in sidebar</Pill>
+    </DocCard>
+    <DocCard kicker="Backend" title="What is implemented today">
+      <p>
+        The backend pages map the current Fastify routes, Drizzle data model,
+        permissions, required environment variables, and local run commands.
+      </p>
+      <Pill tone="success">API and architecture documented</Pill>
+    </DocCard>
+    <DocCard kicker="Workflow" title="How to keep this current">
+      <p>
+        Treat Storybook as the internal handbook. Update the docs whenever
+        route contracts, permissions, or core product flows change.
+      </p>
+      <Pill>Docs live in <code>src/docs</code></Pill>
+    </DocCard>
+  </DocGrid>
+
+  <Callout title="What this documentation set covers">
+    <p>
+      It intentionally starts with two areas: the overall product manual and
+      the backend. UI component stories can be added later alongside these
+      manual pages without changing the Storybook setup.
+    </p>
+  </Callout>
+</DocsPage>
+
+## Current sidebar structure
+
+- `Start`: scope and orientation for the documentation space
+- `Product`: why ECS exists, who uses it, and the standard operating rhythm
+- `Backend`: architecture, API surface, roles, permissions, and local runbook
+
+## Source of truth
+
+- Product intent comes from the project PRD in the repository root.
+- Backend details come from the current code under `backend/src`.
+- This Storybook instance should describe the current system, not an idealized future state.
+
+## Suggested next documentation increments
+
+1. Add UI component stories once the real frontend replaces the Vite starter screen.
+2. Add sequence diagrams for event intake, approvals, and reminder handling.
+3. Add integration notes for deployment, database migrations, and auth token rotation.
