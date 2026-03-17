@@ -9,6 +9,9 @@ on:
 jobs:
   backend:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgres://test:test@localhost:5432/test
+      JWT_SECRET: test-jwt-secret
     defaults:
       run:
         working-directory: backend
