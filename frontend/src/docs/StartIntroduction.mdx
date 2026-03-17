@@ -70,6 +70,9 @@ import {
 
 - `Start`: Einstieg, Scope und Pflegehinweise für die Dokumentationsfläche
 - `Produkt`: Produktlogik, Rollen, Kernobjekte und gewünschter Betriebsablauf
+  - `Produkthandbuch`: Rollen, Kernobjekte, Berechtigungen, Event-Lifecycle
+  - `Szenarien & Akzeptanzkriterien`: 11 Kernszenarien mit messbaren Akzeptanzkriterien
+  - `Agentic Coding — Lessons Learned`: Muster, Fallstricke und Workflow-Empfehlungen für KI-gestützte Entwicklung
 - `Backend`: Architektur, API-Oberfläche, Berechtigungen und Runbook
 - `Infrastruktur`: Hetzner-Cloud-Auswahl, Region, VM-Typ, Netzwerk und Deploy-Basis
 - `Operations`: CI/CD-Pipeline, Release-Ablauf und Betriebsgrenzen des Deployments
@@ -77,7 +80,7 @@ import {
 
 ## Quellenlage
 
-- Die Produktabsicht kommt aus dem PRD im Repository-Root.
+- Die Produktabsicht ist in den Storybook-Seiten `Produkthandbuch` und `Szenarien & Akzeptanzkriterien` dokumentiert.
 - Die Backend-Details kommen direkt aus `backend/src`.
 - Die Infrastrukturdetails kommen direkt aus `infra/terraform`, `infra/scripts` und den ausgerollten Cluster-Defaults.
 - Die Operations-Details kommen direkt aus `.github/workflows` und `deploy/k8s`.

@@ -4,9 +4,9 @@ This file provides repository-specific guidance for coding agents working in thi
 
 ## Source Of Truth
 
-- Use [`event_coordination_system_prd (1).md`](./event_coordination_system_prd%20%281%29.md) as the product source of truth.
+- **Storybook** (`frontend/src/docs/`) is the living documentation and product source of truth. The original PRD has been migrated into Storybook pages (ProductManual, ProductScenarios).
 - Keep changes aligned with the ECS domain: external trade fairs and industry events, not generic internal training workflows.
-- **Storybook** (`frontend/src/docs/`) is the living documentation. Update relevant MDX pages when features change.
+- Update relevant MDX pages when features change.
 - **Demo**: https://5.161.34.169.nip.io/login | **Storybook**: https://5.161.34.169.nip.io/storybook
 
 ## Core Rules

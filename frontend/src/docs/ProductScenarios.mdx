@@ -1,0 +1,218 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  DocCard,
+  DocGrid,
+  DocsPage,
+  DocTable,
+} from './components/DocsPage';
+
+<Meta title="Produkt/Szenarien & Akzeptanzkriterien" id="product-scenarios" />
+
+<DocsPage
+  section="Szenarien"
+  title="Kernszenarien und Akzeptanzkriterien"
+  summary="Die folgenden Szenarien definieren das erwartete Systemverhalten aus Nutzersicht. Sie dienen als Referenz für Implementierung und Abnahme."
+  status="Aus PRD übernommen"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="Intake" title="Events erfassen und vorschlagen">
+      <p>
+        Marketing identifiziert externe Messen und trägt sie ein. Mitarbeitende
+        können eigene Vorschläge einreichen, die vor Freigabe geprüft werden.
+      </p>
+    </DocCard>
+    <DocCard kicker="Teilnahme" title="Bewerben, genehmigen, vorbereiten">
+      <p>
+        Mitarbeitende bewerben sich, Manager genehmigen, das System erzeugt
+        Checklisten, Aufgaben und Erinnerungen für die Vorbereitung.
+      </p>
+    </DocCard>
+    <DocCard kicker="Nachbereitung" title="Berichten und nachverfolgen">
+      <p>
+        Nach dem Event bleiben Berichtsaufgaben sichtbar, bis sie abgeschlossen
+        sind. Änderungen am Event lösen koordinierte Folgeaktionen aus.
+      </p>
+    </DocCard>
+  </DocGrid>
+</DocsPage>
+
+## Szenario 1: Marketing erfasst eine Messe
+
+**Ablauf:** Marketing identifiziert eine relevante externe Messe, erstellt einen Event-Eintrag mit Titel, Beschreibung, Veranstalter-Link, Branche und Datumsinformationen.
+
+<DocTable
+  columns={['Kriterium', 'Beschreibung']}
+  rows={[
+    ['Minimale Pflichtfelder', 'Event kann mit Titel und externem Link erstellt werden'],
+    ['Scoping', 'Eventtyp ist klar auf externe Messen und Branchenevents beschränkt'],
+    ['Nachpflege', 'Branche, Veranstalter, Buchungsstatus und Notizen können nachträglich ergänzt werden'],
+    ['Audit', 'System protokolliert Ersteller, Zeitstempel und Änderungshistorie'],
+  ]}
+/>
+
+## Szenario 2: Mitarbeitende bewerben sich
+
+**Ablauf:** Mitarbeitende sehen den Event-Feed, öffnen Details und bewerben sich zur Teilnahme.
+
+<DocTable
+  columns={['Kriterium', 'Beschreibung']}
+  rows={[
+    ['Sichtbarkeit', 'Mitarbeitende können freigegebene Events ohne vorherige E-Mail-Abstimmung sehen'],
+    ['Bewerbung', 'Ein-Klick-Bewerbung oder mit kurzer Begründung möglich'],
+    ['Duplikatschutz', 'Doppelte Bewerbungen werden verhindert'],
+    ['Aktualisierung', 'Teilnehmerliste aktualisiert sich ohne manuellen Abgleich'],
+    ['Sichtbarkeit für Vorgesetzte', 'Manager und Admins sehen Bewerber gemäß Berechtigungen'],
+  ]}
+/>
+
+## Szenario 3: Mitarbeitende schlagen Events vor
+
+**Ablauf:** Mitarbeitende erstellen ein Event im Status „vorgeschlagen" mit Basisinformationen und Quelllink.
+
+<DocTable
+  columns={['Kriterium', 'Beschreibung']}
+  rows={[
+    ['Vorschlagsrecht', 'Jeder autorisierte Mitarbeitende kann ein externes Event vorschlagen'],
+    ['Kennzeichnung', 'Vorgeschlagene Events sind klar als noch nicht genehmigt markiert'],
+    ['Review-Pflicht', 'Review-Workflow wird durchgesetzt, bevor Buchungsaktionen möglich sind'],
+  ]}
+/>
+
+## Szenario 4: Manager genehmigt Teilnahme
+
+**Ablauf:** Manager prüft Bewerbungen, genehmigt oder lehnt ab. Bestätigte Teilnehmende werden für relevante Stakeholder sichtbar.
+
+<DocTable
+  columns={['Kriterium', 'Beschreibung']}
+  rows={[
+    ['Berechtigung', 'Nur autorisierte Manager oder Admins können Teilnahme genehmigen'],
+    ['Status-Modell', 'Teilnahmestatus: applied, approved, rejected, confirmed, withdrawn'],
+    ['Scope', 'Manager-Berechtigungen können auf eigene Mitarbeitende/Teams beschränkt werden'],
+    ['Feedback', 'Mitarbeitende erhalten klares Feedback zum Bewerbungsergebnis'],
+  ]}
+/>
+
+## Szenario 5: Dynamische Checklisten und Aufgabenplanung
+
+**Ablauf:** Event erreicht die Vorbereitungsphase. System schlägt Checklisten-Items vor oder erstellt sie. Admins, Manager oder Teilnehmende erweitern die Checkliste.
+
+**Beispielaufgaben:** Tickets buchen, Hotel buchen, internen Kalendereintrag erstellen, Kundentermin-Eintrag erstellen, Standmaterial vorbereiten, Nachbericht schreiben.
+
+<DocTable
+  columns={['Kriterium', 'Beschreibung']}
+  rows={[
+    ['Optionalität', 'Aufgaben sind nicht für jedes Event Pflicht, aber das System unterstützt sie'],
+    ['Dynamik', 'Checklisten können pro Event dynamisch erstellt werden'],
+    ['Vorlagen', 'Wiederverwendbare Vorlagen können pro Event erweitert oder angepasst werden'],
+    ['Zuweisung', 'Aufgaben können einem oder mehreren Teilnehmenden zugewiesen werden'],
+    ['Transparenz', 'Teilnehmende sehen klar, welche Aufgaben ihnen zugewiesen sind'],
+    ['Fälligkeit', 'Aufgaben unterstützen Fälligkeitsdaten, Erledigungsstatus und Erinnerungen'],
+  ]}
+/>
+
+## Szenario 6: Erinnerungen für Buchungsfenster und Reiselogistik
+
+**Ablauf:** Event ist früh bekannt, Ticketverkauf beginnt später. Admin speichert erwarteten Buchungszeitraum, System erinnert bei Annäherung.
+
+<DocTable
+  columns={['Kriterium', 'Beschreibung']}
+  rows={[
+    ['Ticketbuchung', 'Erinnerungen für Ticketverkaufsstart werden unterstützt'],
+    ['Reiselogistik', 'Erinnerungen für Hotelbuchung und andere Reiseschritte werden unterstützt'],
+    ['Verknüpfung', 'Erinnerungen können an Event, Checklisten-Item oder Aufgabe gebunden werden'],
+    ['Empfänger', 'Erinnerungen benachrichtigen die relevanten verantwortlichen Personen'],
+    ['Konfiguration', 'Erinnerungszeitpunkte sind konfigurierbar'],
+  ]}
+/>
+
+## Szenario 7: Teilnehmende kennen ihre offene Arbeit
+
+**Ablauf:** Mitarbeitende werden genehmigt, sehen zugewiesene Aufgaben in der Detailansicht, erhalten Erinnerungen bis zur Erledigung.
+
+<DocTable
+  columns={['Kriterium', 'Beschreibung']}
+  rows={[
+    ['Sichtbarkeit', 'Teilnehmende sehen jederzeit offene Aufgaben zu ihrer Event-Teilnahme'],
+    ['Hervorhebung', 'UI hebt unerledigte zugewiesene Aufgaben prominent hervor'],
+    ['Erinnerungen', 'Erinnerungsverhalten für offene Aufgaben ist konfigurierbar'],
+    ['Tracking', 'Aufgaben-Erledigungsstatus ist für Manager und Admins sichtbar'],
+  ]}
+/>
+
+## Szenario 8: Kalenderkoordination
+
+**Ablauf:** Event erfordert interne Planungssichtbarkeit und ggf. kundenseitige Kalenderkoordination. Kalenderreferenzen werden gespeichert, System erinnert an Erstellung/Aktualisierung.
+
+<DocTable
+  columns={['Kriterium', 'Beschreibung']}
+  rows={[
+    ['Referenzen', 'System speichert Verweise auf internen und kundenseitigen Kalender'],
+    ['Erinnerungen', 'Erinnerungslogik für beide Kalenderkontexte wird unterstützt'],
+    ['Vorlagen', 'Kalender-Checklisten-Items können Teil wiederverwendbarer Vorlagen sein'],
+    ['MVP-Grenze', 'Tiefe bidirektionale Synchronisation nicht im MVP, aber Erinnerung und Tracking schon'],
+  ]}
+/>
+
+## Szenario 9: Änderungen lösen koordinierte Folgearbeit aus
+
+**Ablauf:** Event-Datum, -Ort oder -Status ändert sich. System identifiziert betroffene Aufgaben, Erinnerungen und Teilnehmende.
+
+<DocTable
+  columns={['Kriterium', 'Beschreibung']}
+  rows={[
+    ['Logging', 'Änderungen an wichtigen Event-Eigenschaften werden protokolliert'],
+    ['Neuberechnung', 'Betroffene Erinnerungen und Checklisten-Fristen können neu berechnet werden'],
+    ['Kommunikation', 'System schlägt Kommunikationsupdates vor, wenn Änderungen Teilnehmende betreffen'],
+    ['Überblick', 'Betroffene Verantwortliche sehen, was nach der Änderung nachgearbeitet werden muss'],
+  ]}
+/>
+
+## Szenario 10: Nachbericht nach Teilnahme
+
+**Ablauf:** Event ist abgeschlossen, Teilnehmende werden aufgefordert einen Bericht zu erstellen. Berichtsaufgabe bleibt sichtbar bis erledigt.
+
+<DocTable
+  columns={['Kriterium', 'Beschreibung']}
+  rows={[
+    ['Konfiguration', 'Berichtserstellung kann als Standard- oder optionale Post-Event-Aufgabe konfiguriert werden'],
+    ['Timing', 'Berichtsaufgaben können während der Planung oder nach dem Event zugewiesen werden'],
+    ['Tracking', 'Manager und Admins können nachverfolgen, ob Nachberichte abgeschlossen sind'],
+  ]}
+/>
+
+## Szenario 11: KI-gestützte Koordination
+
+**Ablauf:** Nutzer öffnet ein Event, Agent analysiert Vollständigkeit und Zeitplan, schlägt fehlende Items, nächste Schritte oder Erinnerungs-Setup vor.
+
+**Beispielvorschläge:** „Ticketverkauf startet später — Erinnerung erstellen.", „Noch keine Hotelerinnerung für bestätigte Teilnehmende.", „Nachbericht fehlt."
+
+<DocTable
+  columns={['Kriterium', 'Beschreibung']}
+  rows={[
+    ['Erkennung', 'Agent kann fehlende Aufgaben, Erinnerungen oder Event-Felder identifizieren'],
+    ['Umsetzbarkeit', 'Vorschläge sind handlungsfähig und können akzeptiert oder ignoriert werden'],
+    ['Audit', 'Agent-Aktionen und -Vorschläge werden protokolliert'],
+    ['Governance', 'Agent unterstützt, ersetzt aber nicht die Nutzerfreigabe für sensible Aktionen'],
+  ]}
+/>
+
+## Erfolgsmetriken
+
+<DocTable
+  columns={['Metrik', 'Ziel']}
+  rows={[
+    ['Reduktion der Koordinationszeit', '> 50% weniger manuelle Abstimmung'],
+    ['Ersetzte manuelle E-Mails', 'Anzahl ersetzer E-Mail-basierter Koordinationsschleifen'],
+    ['Aufgaben-Erledigungsrate', 'Anteil termingerecht erledigter Event-Aufgaben'],
+    ['Event-Durchführungsrate', 'Anteil erfolgreich vorbereiteter und durchgeführter Events'],
+  ]}
+/>
+
+<Callout title="Leitprinzip">
+  <p>
+    Das System verwaltet <strong>Zustand und Koordination</strong>, nicht nur Dateneingabe.
+    Jede Funktion muss daran gemessen werden, ob sie die Koordination der externen
+    Event-Teilnahme verbessert.
+  </p>
+</Callout>
