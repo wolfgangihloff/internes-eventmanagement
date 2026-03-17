@@ -11,6 +11,13 @@ spec:
     - host: ${INGRESS_HOST}
       http:
         paths:
+          - path: /health
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 3000
           - path: /api
             pathType: Prefix
             backend:

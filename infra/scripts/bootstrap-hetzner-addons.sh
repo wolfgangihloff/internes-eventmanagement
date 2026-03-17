@@ -42,6 +42,8 @@ echo "Bootstrapping Hetzner addons on ${server_ip}..."
 ssh "${ssh_opts[@]}" "${SSH_USER}@${server_ip}" "sudo bash -s" <<EOF
 set -euo pipefail
 
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+
 if ! command -v helm >/dev/null 2>&1; then
   curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 fi

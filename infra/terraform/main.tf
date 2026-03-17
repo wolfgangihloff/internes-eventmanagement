@@ -89,6 +89,13 @@ resource "hcloud_firewall" "cluster" {
     source_ips = var.kube_api_allowed_cidrs
   }
 
+  rule {
+    direction  = "in"
+    protocol   = "tcp"
+    port       = "30000-32767"
+    source_ips = [var.private_network_cidr]
+  }
+
   apply_to {
     server = hcloud_server.control_plane.id
   }

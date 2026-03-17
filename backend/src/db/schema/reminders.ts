@@ -8,9 +8,9 @@ import {
   pgEnum,
   jsonb,
 } from 'drizzle-orm/pg-core';
-import { users } from './users';
-import { events } from './events';
-import { tasks } from './tasks';
+import { users } from './users.js';
+import { events } from './events.js';
+import { tasks } from './tasks.js';
 
 export const reminderTriggerTypeEnum = pgEnum('reminder_trigger_type', [
   'time_based',
