@@ -1,0 +1,94 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Callout,
+  DocCard,
+  DocGrid,
+  DocsPage,
+  DocTable,
+} from './components/DocsPage';
+import {
+  infrastructureDecisionRows,
+  infrastructureFirewallRows,
+  infrastructureNetworkRows,
+  infrastructurePlatformRows,
+} from './content/docs-data.js';
+
+<Meta title="Infrastruktur/Hetzner & k3s Baseline" id="infrastructure-hetzner-baseline" />
+
+<DocsPage
+  section="Infrastruktur"
+  title="Gewählte Hetzner-Cloud-Baseline"
+  summary="Der aktuelle ECS-Betrieb läuft als Single-Node-k3s-Deployment auf Hetzner Cloud. Diese Seite dokumentiert die konkret gewählten Infrastrukturparameter und den beabsichtigten Betriebszuschnitt."
+  status="Live ausgerollt"
+>
+  <DocGrid columns="three">
+    <DocCard kicker="Provider" title="Hetzner Cloud als Host-Plattform">
+      <p>
+        Die aktuelle Infrastruktur nutzt Hetzner Cloud statt eines Managed-
+        Kubernetes-Angebots. Ziel war eine kleine, direkte und kostengünstige
+        Betriebsbasis mit nativen Integrationen für Load Balancer und Volumes.
+      </p>
+    </DocCard>
+    <DocCard kicker="Compute" title="Single-Node auf cpx21">
+      <p>
+        Der aktuelle Cluster läuft absichtlich klein: ein einzelner k3s-Node
+        auf dem Hetzner-Servertyp <code>cpx21</code>. Das reicht für Demo und
+        frühe Betriebsvalidierung, ist aber keine HA-Architektur.
+      </p>
+    </DocCard>
+    <DocCard kicker="Region" title="Location ash / Network Zone us-east">
+      <p>
+        Terraform nutzt aktuell <code>location = ash</code>. Daraus wird intern
+        die Hetzner Network Zone <code>us-east</code> abgeleitet, die für Netz-
+        und Load-Balancer-Verhalten relevant ist.
+      </p>
+    </DocCard>
+  </DocGrid>
+</DocsPage>
+
+## Infrastrukturentscheidungen
+
+<DocTable
+  columns={['Dimension', 'Gewählter Wert', 'Einordnung']}
+  rows={infrastructureDecisionRows.map((row) => [row.dimension, <code>{row.value}</code>, row.rationale])}
+/>
+
+## Netzwerk und feste Defaults
+
+<DocTable
+  columns={['Bereich', 'Wert', 'Zweck']}
+  rows={infrastructureNetworkRows.map((row) => [row.area, <code>{row.value}</code>, row.purpose])}
+/>
+
+## Plattformbausteine
+
+<DocTable
+  columns={['Baustein', 'Auswahl', 'Notiz']}
+  rows={infrastructurePlatformRows.map((row) => [row.component, <code>{row.selection}</code>, row.note])}
+/>
+
+## Firewall und Exponierung
+
+<DocTable
+  columns={['Regel', 'Quelle', 'Warum']}
+  rows={infrastructureFirewallRows.map((row) => [<code>{row.rule}</code>, <code>{row.source}</code>, row.reason])}
+/>
+
+<Callout title="Wichtige Betriebsgrenzen" tone="warning">
+  <ul>
+    <li>
+      Die Architektur ist bewusst <strong>single-node</strong>. Ein Host-Ausfall
+      bedeutet im aktuellen Stand einen Plattformausfall.
+    </li>
+    <li>
+      <code>ssh_allowed_cidrs</code> und <code>kube_api_allowed_cidrs</code>{' '}
+      stehen aktuell weit offen, weil GitHub-hosted Deployments und schneller
+      Demo-Zugriff priorisiert wurden.
+    </li>
+    <li>
+      Wenn der Schwerpunkt klar in Europa liegt, sollte die Region bewusst
+      gegen europäische Hetzner-Standorte wie <code>fsn1</code>,{' '}
+      <code>nbg1</code> oder <code>hel1</code> neu bewertet werden.
+    </li>
+  </ul>
+</Callout>

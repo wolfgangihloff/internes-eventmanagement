@@ -142,6 +142,126 @@ export const backendDomainRows = [
     prefix: '/events/:eventId/suggestions',
     responsibility: 'Teilnahme analysieren, KI-Vorschläge für Lücken erzeugen und auflösen',
   },
+  {
+    area: 'Benutzerverwaltung',
+    prefix: '/users',
+    responsibility: 'Benutzer anlegen, pflegen, Rollen setzen und Passwörter administrativ zurücksetzen',
+  },
+];
+
+export const infrastructureDecisionRows = [
+  {
+    dimension: 'Cloud',
+    value: 'Hetzner Cloud',
+    rationale:
+      'Pragmatische Baseline mit nativen Integrationen für Load Balancer, Volumes und günstigen Single-Node-Betrieb.',
+  },
+  {
+    dimension: 'Region / Location',
+    value: 'ash',
+    rationale:
+      'Aktueller Terraform-Default und live ausgerollter Standort; in den Terraform-Locals auf die Network Zone us-east gemappt.',
+  },
+  {
+    dimension: 'VM-Typ',
+    value: 'cpx21',
+    rationale:
+      'Gewählte Compute-Baseline für den aktuellen Single-Node-Demo-Cluster mit Backend, Frontend, PostgreSQL und Redis auf einem Host.',
+  },
+  {
+    dimension: 'Basis-Image',
+    value: 'ubuntu-24.04',
+    rationale: 'LTS-Basis für den k3s-Host.',
+  },
+  {
+    dimension: 'Orchestrierung',
+    value: 'k3s, channel stable',
+    rationale: 'Kleiner Kubernetes-Footprint mit geringerem Betriebsaufwand als eine volle Upstream-Installation.',
+  },
+];
+
+export const infrastructureNetworkRows = [
+  {
+    area: 'Privates Netzwerk',
+    value: '10.20.0.0/16',
+    purpose: 'Interner Hetzner-Netzbereich für Cluster-Kommunikation und private Load-Balancer-Ziele.',
+  },
+  {
+    area: 'Privates Subnetz',
+    value: '10.20.1.0/24',
+    purpose: 'Cloud-Subnetz für den aktuellen Single-Node-Cluster.',
+  },
+  {
+    area: 'Node Private IP',
+    value: '10.20.1.10',
+    purpose: 'Feste interne Adresse des k3s-Servers im Hetzner-Netz.',
+  },
+  {
+    area: 'Öffentliches Netz',
+    value: 'IPv4 und IPv6 aktiviert',
+    purpose: 'Öffentliche Erreichbarkeit für SSH, Kubernetes API und Ingress.',
+  },
+  {
+    area: 'Network Zone',
+    value: 'us-east',
+    purpose: 'Hetzner-Zone, die aus location=ash abgeleitet wird und für Netz-/LB-Kopplung relevant ist.',
+  },
+];
+
+export const infrastructurePlatformRows = [
+  {
+    component: 'Ingress',
+    selection: 'Traefik (k3s Standard)',
+    note: 'Über ein Hetzner Load Balancer Service nach außen veröffentlicht.',
+  },
+  {
+    component: 'Load Balancer',
+    selection: 'Hetzner Cloud Load Balancer',
+    note: 'Traefik läuft hinter dem nativen Hetzner-LB statt auf einer manuellen VM-Proxy-Schicht.',
+  },
+  {
+    component: 'Storage',
+    selection: 'Hetzner CSI, StorageClass hcloud-volumes',
+    note: 'Persistenz für PostgreSQL und Redis über Hetzner-Volumes.',
+  },
+  {
+    component: 'Cloud Integration',
+    selection: 'Hetzner CCM + Hetzner CSI',
+    note: 'Ermöglicht LB- und Volume-Provisionierung direkt aus Kubernetes.',
+  },
+  {
+    component: 'TLS',
+    selection: 'cert-manager + letsencrypt-prod',
+    note: 'HTTPS via ACME HTTP-01 über Traefik.',
+  },
+  {
+    component: 'Host',
+    selection: '5.161.34.169.nip.io',
+    note: 'Demo-Host auf Basis des aktuellen Load-Balancer-IPv4 ohne separate DNS-Zone.',
+  },
+];
+
+export const infrastructureFirewallRows = [
+  {
+    rule: '22/tcp',
+    source: 'ssh_allowed_cidrs',
+    reason: 'SSH-Zugriff auf den Node.',
+  },
+  {
+    rule: '80/tcp, 443/tcp',
+    source: '0.0.0.0/0, ::/0',
+    reason: 'Öffentliche HTTP/HTTPS-Erreichbarkeit für Traefik und ACME-Challenges.',
+  },
+  {
+    rule: '6443/tcp',
+    source: 'kube_api_allowed_cidrs',
+    reason: 'Kubernetes API für Cluster-Administration und GitHub-hosted Deployments.',
+  },
+  {
+    rule: '30000-32767/tcp',
+    source: '10.20.0.0/16',
+    reason: 'Interner NodePort-Traffic für den Hetzner Load Balancer.',
+  },
 ];
 
 export const backendDataModelRows = [
@@ -329,6 +449,12 @@ export const backendRouteSections = [
   {
     title: 'Teilnahmen',
     rows: [
+      {
+        method: 'GET',
+        path: '/api/v1/users/me/participations',
+        access: 'Authentifiziert',
+        summary: 'Eigene Teilnahmen inklusive Event-Bezug über alle Events hinweg auflisten',
+      },
       {
         method: 'GET',
         path: '/api/v1/events/:eventId/participations',
@@ -535,6 +661,41 @@ export const backendRouteSections = [
         path: '/api/v1/events/:eventId/suggestions/:sid',
         access: 'agent:suggestions',
         summary: 'Einen Vorschlag akzeptieren oder verwerfen',
+      },
+    ],
+  },
+  {
+    title: 'Benutzerverwaltung',
+    rows: [
+      {
+        method: 'GET',
+        path: '/api/v1/users',
+        access: 'user:manage',
+        summary: 'Benutzerliste optional nach Suchbegriff filtern und ausgeben',
+      },
+      {
+        method: 'POST',
+        path: '/api/v1/users',
+        access: 'user:manage',
+        summary: 'Einen Benutzer inklusive Startrollen anlegen',
+      },
+      {
+        method: 'PATCH',
+        path: '/api/v1/users/:id',
+        access: 'user:manage',
+        summary: 'Anzeigename oder Aktivstatus eines Benutzers aktualisieren',
+      },
+      {
+        method: 'PUT',
+        path: '/api/v1/users/:id/roles',
+        access: 'user:manage',
+        summary: 'Rollen eines Benutzers vollständig neu setzen',
+      },
+      {
+        method: 'POST',
+        path: '/api/v1/users/:id/reset-password',
+        access: 'user:manage',
+        summary: 'Passwort eines Benutzers administrativ zurücksetzen',
       },
     ],
   },

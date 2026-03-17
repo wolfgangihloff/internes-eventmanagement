@@ -12,7 +12,7 @@ import {
 <DocsPage
   section="Dokumentationszentrale"
   title="ECS-Dokumentationszentrale"
-  summary="Storybook ist jetzt die interne Dokumentationsoberfläche für ECS. Der erste Stand bündelt die Produktlogik für externe Event-Teilnahmen und den aktuell im Repository vorhandenen Backend-Umfang."
+  summary="Storybook ist jetzt die interne Dokumentationsoberfläche für ECS. Der aktuelle Stand bündelt Produktlogik, Backend-Umfang, Infrastrukturentscheidungen und bewusst verschobene Betriebs-Epics."
   status="Basis"
 >
   <DocGrid columns="three">
@@ -30,6 +30,14 @@ import {
         Berechtigungen, Umgebungsvariablen und lokale Startbefehle ab.
       </p>
       <Pill tone="success">API und Architektur dokumentiert</Pill>
+    </DocCard>
+    <DocCard kicker="Infrastruktur" title="Wie ECS aktuell betrieben wird">
+      <p>
+        Die Infrastruktur-Seite dokumentiert die gewählte Hetzner-Cloud-
+        Baseline mit Region, VM-Typ, Netzwerk, Firewall, k3s, Load Balancer
+        und TLS-Setup.
+      </p>
+      <Pill tone="success">Live-Deployment dokumentiert</Pill>
     </DocCard>
     <DocCard kicker="Pflege" title="Wie die Doku aktuell bleibt">
       <p>
@@ -55,11 +63,14 @@ import {
 - `Start`: Einstieg, Scope und Pflegehinweise für die Dokumentationsfläche
 - `Produkt`: Produktlogik, Rollen, Kernobjekte und gewünschter Betriebsablauf
 - `Backend`: Architektur, API-Oberfläche, Berechtigungen und Runbook
+- `Infrastruktur`: Hetzner-Cloud-Auswahl, Region, VM-Typ, Netzwerk und Deploy-Basis
+- `Backlog`: bewusst verschobene Betriebs-Epics für spätere Ausbaustufen
 
 ## Quellenlage
 
 - Die Produktabsicht kommt aus dem PRD im Repository-Root.
 - Die Backend-Details kommen direkt aus `backend/src`.
+- Die Infrastrukturdetails kommen direkt aus `infra/terraform`, `infra/scripts` und den ausgerollten Cluster-Defaults.
 - Dieses Storybook soll den tatsächlichen Ist-Zustand beschreiben, nicht ein Wunschbild.
 
 ## Nächste sinnvolle Ausbaustufen

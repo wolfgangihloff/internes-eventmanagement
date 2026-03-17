@@ -167,7 +167,7 @@ async function auditRoutes(docsData, failures) {
 
   for (const file of routeFiles) {
     const content = await read(path.join(backendRoutesDir, file));
-    const matches = content.matchAll(/\bapp\.(get|post|patch|delete)\(\s*['"]([^'"]+)['"]/g);
+    const matches = content.matchAll(/\bapp\.(get|post|patch|put|delete)\(\s*['"]([^'"]+)['"]/g);
 
     for (const match of matches) {
       const method = match[1].toUpperCase();
