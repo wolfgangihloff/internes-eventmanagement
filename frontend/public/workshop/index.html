@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="de" class="spectrum spectrum--light spectrum--medium">
 <head>
-  <!-- Vendored from /Users/wolfgang/workspace/lagebild-ki for deployment under /workshop/. -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lagebild KI</title>
@@ -14,8 +13,8 @@
   <link rel="stylesheet" href="vendor/spectrum/typography.css">
   <link rel="stylesheet" href="vendor/spectrum/divider.css">
   <!-- Reveal.js -->
-  <link rel="stylesheet" href="vendor/reveal/reveal.css">
-  <link rel="stylesheet" href="vendor/reveal/theme/white.css">
+  <link rel="stylesheet" href="vendor/reveal.js/reveal.css">
+  <link rel="stylesheet" href="vendor/reveal.js/theme/white.css">
   <!-- Source Sans Pro (Adobe open-source font) -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap">
   <!-- Material Symbols -->
@@ -266,9 +265,13 @@
       clip-path: inset(10% 5% 25% 5%);
     }
 
-    /* ── Slide padding ── */
+    /* ── Slide padding & overflow guard ── */
     .reveal .slides section {
       padding: 1em 0;
+      box-sizing: border-box;
+    }
+    .reveal .slides > section > section {
+      overflow: hidden;
     }
 
     /* ── Progress bar ── */
@@ -279,409 +282,55 @@
 </head>
 <body>
   <div class="reveal">
-    <div class="slides">
-
-      <!-- ==================== TITELFOLIE ==================== -->
-      <section>
-        <h1>Lagebild <span class="highlight">KI</span></h1>
-        <p class="subtitle">Was KI heute kann &ndash; und was wir morgen damit machen</p>
-        <p class="subtitle" style="margin-top: 2em; font-size: 0.5em; color: #555;">
-          2h Praxis-Session &middot; 2026
-        </p>
-      </section>
-
-      <!-- ==================== ÜBER MICH ==================== -->
-      <section>
-        <div class="section-label">Intro</div>
-        <h2>Wolfgang Ihloff</h2>
-        <p class="highlight" style="font-size: 0.7em; margin-bottom: 1em;">
-          AI Systems Architect &middot; Fractional CTO &middot; Senticor
-        </p>
-        <ul>
-          <li><strong>20+ Jahre</strong> Cloud &amp; Distributed Systems</li>
-          <li><strong>Adobe Ethos</strong> &ndash; Devops & ML Platform f&uuml;r 3.000+ Entwickler (Document Cloud, Marketing Cloud, Sensei, Creative Cloud)</li>
-          <li><strong>Aleph Alpha</strong> &ndash; First Product Hire, Enterprise &amp; Government AI</li>
-          <li><strong>Heute:</strong> AI-native Software Factories &ndash; von Spec zu Production mit Agents</li>
-        </ul>
-        <aside class="notes">
-          Kurz: Ich baue seit 20 Jahren Plattformen. Erst Cloud, dann Big Data, ML, jetzt KI-native Systeme.
-          Bei Adobe die Entwicklungs- und Betriebsinfrastruktur für tausende Entwickler gebaut,
-          bei Aleph Alpha souveräne KI für Enterprise/Government,
-          jetzt baue ich "Dark Software Factories" – Systeme die von Spec zu Production kommen mit Agents.
-        </aside>
-      </section>
-
-      <!-- ==================== USAGE STATS ==================== -->
-      <section>
-        <div class="section-label">Intro</div>
-        <h2>Mein AI-Footprint</h2>
-        <p class="subtitle" id="usage-stats-subtitle">
-          Lokale Nutzung aus meinen Coding-Tools
-        </p>
-
-        <div class="stats-topline">
-          <div class="stats-card">
-            <span class="value" id="stats-total-hours">&mdash;</span>
-            <span class="label">gesch&auml;tzte aktive Std.</span>
-          </div>
-          <div class="stats-card">
-            <span class="value" id="stats-total-days">&mdash;</span>
-            <span class="label">aktive Tage</span>
-          </div>
-          <div class="stats-card">
-            <span class="value" id="stats-total-projects">&mdash;</span>
-            <span class="label">Projekte angefasst</span>
-          </div>
-        </div>
-
-        <div class="stats-grid" id="tool-stats-grid">
-          <div class="tool-card">
-            <div class="tool-name">Lade lokale Statistiken ...</div>
-            <span class="primary">Bitte warten</span>
-            <div class="tool-since">Die Zahlen werden aus lokalen Logs und Editor-Spuren geladen.</div>
-          </div>
-        </div>
-        <div class="tool-callouts" id="tool-callouts"></div>
-
-        <p class="stats-footnote" id="stats-footnote">
-          Stand wird geladen &middot; lokale Session-Logs und Editor-Metadaten
-        </p>
-      </section>
-
-      <!-- ==================== LAGEBILD: TIMELINE ==================== -->
-      <section>
-        <section>
-          <div class="section-label">Lagebild</div>
-          <h2>Wo stehen wir?</h2>
-          <p class="subtitle">Die KI-Entwicklung der letzten Jahre &ndash; im Schnelldurchlauf</p>
-        </section>
-
-        <section>
-          <h2>Die Welle</h2>
-          <ul class="timeline">
-            <li><span class="year">2022</span> &mdash; ChatGPT &ouml;ffnet die T&uuml;r. Alle reden &uuml;ber KI.</li>
-            <li><span class="year">2023</span> &mdash; GPT-4, Claude, Copilot. KI wird brauchbar f&uuml;r Code.</li>
-            <li><span class="year">2024</span> &mdash; Coding Agents, RAG, lokale Modelle. KI wird Werkzeug.</li>
-            <li><span class="year">2025</span> &mdash; Autonome Agents, Claude Code, Cursor. KI arbeitet mit.</li>
-            <li><span class="year">2026</span> &mdash; <strong>Jetzt.</strong> KI ist Teil des Workflows &ndash; nicht optional.</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Was sich ver&auml;ndert hat</h2>
-          <ul>
-            <li><span class="icon">forum</span> Von <em>&ldquo;Frag die KI&rdquo;</em> &rarr; zu <em>&ldquo;Arbeite mit der KI&rdquo;</em></li>
-            <li><span class="icon">build</span> Von Chatbot &rarr; zu <strong>Agent mit Tools</strong></li>
-            <li><span class="icon">deployed_code</span> Von Text-Output &rarr; zu <strong>lauff&auml;higem Code, Infra, Docs</strong></li>
-            <li><span class="icon">psychology</span> Von &ldquo;kann das?&rdquo; &rarr; zu <strong>&ldquo;wie setze ich das ein?&rdquo;</strong></li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Die Realit&auml;t heute</h2>
-          <ul>
-            <li>KI schreibt <strong>30-80%</strong> des Codes in vielen Teams</li>
-            <li>Agents k&ouml;nnen <strong>eigenst&auml;ndig planen, umsetzen, testen</strong></li>
-            <li>Infrastruktur, Docs, Requirements &ndash; alles ist KI-f&auml;hig</li>
-            <li>Wer es nicht nutzt, <strong>verliert</strong> &ndash; nicht irgendwann, sondern jetzt</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2><span class="icon">bolt</span> AI Highlights <span class="highlight">M&auml;rz 2026</span></h2>
-          <ul>
-            <li><span class="icon">memory</span> Nvidia: &bdquo;AI Agents sind das neue <strong>Betriebssystem</strong>&ldquo;</li>
-            <li><span class="icon">warning</span> Meta strauchelt: eigenes Modell verz&ouml;gert, denkt &uuml;ber <strong>Gemini-Lizenz</strong> nach</li>
-            <li><span class="icon">code</span> Claude Opus 4.6: Top-Level Coding-Performance (<strong>SWE-Bench ~80%</strong>)</li>
-            <li><span class="icon">description</span> <strong>1M Token Kontext</strong> wird Standard &rarr; ganze Projekte im Kontext</li>
-            <li><span class="icon">search</span> Google Gemini: wird zur aktiven <strong>Knowledge Engine</strong> (Docs, Sheets, Mail)</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2><span class="icon">bolt</span> AI Highlights <span class="highlight">M&auml;rz 2026</span></h2>
-          <ul>
-            <li><span class="icon">speed</span> Neue Modelle: Fokus shiftet von &bdquo;smarter&ldquo; &rarr; <strong>&bdquo;schneller &amp; g&uuml;nstiger&ldquo;</strong></li>
-            <li><span class="icon">bug_report</span> AI Coding Boom: Modelle l&ouml;sen <strong>reale Software-Bugs</strong> in Produktion</li>
-            <li><span class="icon">group</span> Agent-Teams: mehrere AI-Agenten arbeiten <strong>parallel</strong> an Tasks</li>
-            <li><span class="icon">account_balance</span> AI wird <strong>Infrastruktur</strong>: Milliarden-Investments + geopolitische Relevanz</li>
-            <li><span class="icon">balance</span> Kein klarer Gewinner: OpenAI, Anthropic, Google &ndash; <strong>offenes Rennen</strong></li>
-          </ul>
-        </section>
-      </section>
-
-      <!-- ==================== DAS PROJEKT ==================== -->
-      <section>
-        <section>
-          <div class="section-label">Unser Projekt</div>
-          <h2>Was bauen <span class="highlight">wir</span>?</h2>
-          <p class="subtitle">Euer Problem. Eure Daten. Euer Projekt.</p>
-          <aside class="notes">
-            Jetzt wird's interaktiv. Wir entscheiden gemeinsam was wir in den nächsten 2h live bauen.
-          </aside>
-        </section>
-
-        <section>
-          <h2>Was nervt euch am meisten?</h2>
-          <ul>
-            <li><span class="icon">query_stats</span> Daten aus <strong>5 Systemen</strong> zusammenf&uuml;hren?</li>
-            <li><span class="icon">description</span> Reports die niemand liest &ndash; aber <strong>alle wollen</strong>?</li>
-            <li><span class="icon">psychology</span> Prozesse die nur <strong>in eurem Kopf</strong> existieren?</li>
-            <li><span class="icon">build</span> Tools die 80% k&ouml;nnen &ndash; aber nicht die <strong>20% die ihr braucht</strong>?</li>
-          </ul>
-          <p class="subtitle" style="margin-top: 1em;">
-            2 Minuten: Was w&uuml;rdet ihr einem Agent geben, wenn er alles k&ouml;nnte?
-          </p>
-          <aside class="notes">
-            2 Min. Brainstorm. Ideen sammeln, kurz diskutieren. Dann gemeinsam ein Projekt wählen.
-          </aside>
-        </section>
-
-      </section>
-
-      <!-- ==================== AGENDA ==================== -->
-      <section>
-        <section>
-          <div class="section-label">Agenda</div>
-          <h2>Wie wir das bauen</h2>
-          <div class="agenda-grid">
-            <span class="time">20 min</span>
-            <span><strong>Requirements</strong> &ndash; KI schreibt die Spec aus unserer Feature-Liste</span>
-
-            <span class="time">25 min</span>
-            <span><strong>Anwendung</strong> &ndash; KI baut das Projekt (API-Anbindung, Logik, Tests)</span>
-
-            <span class="time" style="opacity:0.3">&nbsp;</span>
-            <span style="opacity:0.3; font-style:italic">Pause</span>
-
-            <span class="time">20 min</span>
-            <span><strong>Dokumentation</strong> &ndash; KI generiert README, Setup Guide, Architektur-Doc</span>
-
-            <span class="time">20 min</span>
-            <span><strong>Infrastruktur</strong> &ndash; CI/CD Pipeline, Container, Deployment auf k3s</span>
-
-            <span class="time">15 min</span>
-            <span><strong>Agent als PM</strong> &ndash; Agent bekommt n&auml;chstes Feature, macht alles allein</span>
-          </div>
-          <p class="subtitle" style="margin-top: 1.5em;">Ein Projekt. F&uuml;nf Perspektiven. Alles live in VS Code.</p>
-        </section>
-
-        <!-- Guide: Zwischenstände sichern -->
-        <section>
-          <h2><span class="icon">save</span> Zwischenst&auml;nde sichern</h2>
-          <ul>
-            <li>Agent-Fehler ziehen sich durch das <strong>gesamte System</strong> &ndash; DB, API, UI gleichzeitig betroffen</li>
-            <li>Nach jedem stabilen Schritt <strong>committen</strong> &ndash; das ist euer Sicherheitsnetz</li>
-            <li>Fortschritt = <strong>stabile Zwischenst&auml;nde</strong>, nicht Menge an generiertem Code</li>
-          </ul>
-          <p class="subtitle" style="margin-top: 1em;">
-            Grundregel: Nach jedem validierten Schritt ein Commit &ndash; egal welches Tool.
-          </p>
-        </section>
-
-        <!-- Guide: Sessions neu starten -->
-        <section>
-          <h2><span class="icon">restart_alt</span> Sessions bewusst neu starten</h2>
-          <ul>
-            <li>Kontextfenster ist <strong>begrenzt</strong> &ndash; Qualit&auml;t sinkt mit der Sessionl&auml;nge</li>
-            <li>Symptome: widerspr&uuml;chliche Antworten, Wiederholungen, <strong>Scheinfortschritt</strong></li>
-            <li>Kurze &Uuml;bergabe mit Ziel, Regeln und offenem Task &ndash; <strong>max. 10&ndash;20 Zeilen</strong></li>
-          </ul>
-          <p class="subtitle" style="margin-top: 1em;">
-            Neustart ist kein R&uuml;ckschritt, sondern Re-Fokussierung.
-          </p>
-        </section>
-
-        <!-- Guide: Leitplanken definieren -->
-        <section>
-          <h2><span class="icon">shield</span> Leitplanken definieren</h2>
-          <ul>
-            <li>Agents haben <strong>kein Langzeitged&auml;chtnis</strong> &uuml;ber Sessions hinweg</li>
-            <li>Zentrale Regeldatei anlegen: <strong>agents.md</strong>, <strong>.cursorrules</strong>, <strong>CLAUDE.md</strong></li>
-            <li>Schlank halten &ndash; zu viel Kontext <strong>reduziert</strong> die Effizienz</li>
-          </ul>
-          <p class="subtitle" style="margin-top: 1em;">
-            Wie ein Mitarbeiterhandbuch &ndash; Standards definieren, kontinuierlich pflegen.
-          </p>
-        </section>
-
-        <!-- Guide: Kleine Arbeitspakete -->
-        <section>
-          <h2><span class="icon">view_agenda</span> Kleine Arbeitspakete schneiden</h2>
-          <ul>
-            <li>Der <strong>Fehler-Radius</strong> w&auml;chst mit der Aufgabengr&ouml;&szlig;e</li>
-            <li>Jeder Schritt: <strong>umsetzen &rarr; testen &rarr; committen</strong></li>
-            <li>Gute Task-Definition ersetzt technische Detailarbeit</li>
-          </ul>
-          <p class="subtitle" style="margin-top: 1em;">
-            Scope begrenzen: &bdquo;Implementiere nur Schritt 1. Keine UI, keine API.&ldquo;
-          </p>
-        </section>
-
-        <!-- Guide: Qualität einfordern -->
-        <section>
-          <h2><span class="icon">verified</span> Qualit&auml;t explizit einfordern</h2>
-          <ul>
-            <li>Agents liefern nur den <strong>Happy Path</strong> &ndash; ohne explizite Anweisung</li>
-            <li>Fehlerhandling, Sicherheit, Datenschutz <strong>aktiv beauftragen</strong></li>
-            <li>Demo sieht gut aus &ndash; Probleme kommen erst <strong>im Betrieb</strong></li>
-          </ul>
-          <p class="subtitle" style="margin-top: 1em;">
-            Explizit: &bdquo;Erg&auml;nze Fehlerbehandlung. Nutzer sehen nur eigene Daten. Keine sensiblen Logs.&ldquo;
-          </p>
-        </section>
-
-        <!-- Guide: AI Development Supervisor -->
-        <section>
-          <h2><span class="icon">supervisor_account</span> Neue Rolle: AI Supervisor</h2>
-          <ul>
-            <li>Rolle verschiebt sich: <strong>Koordination</strong> &rarr; <strong>Steuerung</strong> von AI-Prozessen</li>
-            <li>Erst <strong>planen</strong>, dann umsetzen, dann <strong>reviewen</strong> &ndash; je Schritt</li>
-            <li>Steuerung <strong>vor</strong> dem Fehler statt danach</li>
-          </ul>
-          <p class="subtitle" style="margin-top: 1em;">
-            &bdquo;Erstelle zuerst einen Plan. Ich gebe frei. Stoppe nach jedem Schritt f&uuml;r Review.&ldquo;
-          </p>
-        </section>
-
-        <!-- Tools: Kostenlose Coding Agents -->
-        <section>
-          <h2><span class="icon">rocket_launch</span> Kostenlose Coding Agents</h2>
-          <div class="agenda-grid" style="font-size: 0.85em;">
-            <span class="icon" style="font-size: 1em;">terminal</span>
-            <span><strong>Codex</strong> (OpenAI) &ndash; CLI-basierter Coding-Agent &nbsp;
-              <a href="https://platform.openai.com/signup" target="_blank">platform.openai.com</a></span>
-
-            <span class="icon" style="font-size: 1em;">cloud</span>
-            <span><strong>Kiro</strong> (AWS) &ndash; Agentic IDE mit Free Credits &nbsp;
-              <a href="https://kiro.dev/" target="_blank">kiro.dev</a></span>
-
-            <span class="icon" style="font-size: 1em;">edit_note</span>
-            <span><strong>Cursor</strong> &ndash; Agentic IDE mit Autocomplete + Multi-File Editing &nbsp;
-              <a href="https://cursor.sh" target="_blank">cursor.sh</a></span>
-          </div>
-          <p class="subtitle" style="margin-top: 1.5em;">
-            Free Tier meist zeitlich oder nutzungsbegrenzt &ndash; aber genug, um loszuspielen.
-          </p>
-        </section>
-
-        <section>
-          <h2><span class="icon">laptop_windows</span> Windows Setup f&uuml;r Coding Agents</h2>
-          <div class="agenda-grid" style="font-size: 0.78em;">
-            <span class="icon" style="font-size: 1em;">memory</span>
-            <span><strong>Hardware:</strong> 16 GB RAM minimum, 32 GB angenehmer; 4+ CPU-Kerne; 40&ndash;50 GB freie SSD f&uuml;r WSL, Docker, Modelle, Node-Module</span>
-
-            <span class="icon" style="font-size: 1em;">computer</span>
-            <span><strong>Windows:</strong> ideal Windows 11; Windows 10 geht auch, wenn Virtualization aktiviert ist und <strong>WSL2</strong> sauber l&auml;uft</span>
-
-            <span class="icon" style="font-size: 1em;">terminal</span>
-            <span><strong>Zuerst installieren:</strong> WSL2 + Ubuntu, Windows Terminal, VS Code, Git, 1Password oder vergleichbaren Secret Manager</span>
-
-            <span class="icon" style="font-size: 1em;">download</span>
-            <span><strong>Dann in WSL:</strong> `build-essential`, `git`, `curl`, `unzip`, `zip`, `jq`, `ripgrep`, `fd-find`, `zsh`, `tmux`</span>
-
-            <span class="icon" style="font-size: 1em;">deployed_code</span>
-            <span><strong>Runtimes:</strong> Node LTS via `nvm`, Python 3 + `uv` oder `pipx`, Docker Desktop oder Rancher Desktop mit WSL-Integration</span>
-
-            <span class="icon" style="font-size: 1em;">rule</span>
-            <span><strong>Wichtig:</strong> Projekte, Package Manager, Git und Agenten <strong>in WSL</strong> ausf&uuml;hren &ndash; nicht halb in Windows, halb in Linux</span>
-          </div>
-          <p class="subtitle" style="margin-top: 1.2em;">
-            Faustregel: Windows ist Host und UI &ndash; die eigentliche Dev-Umgebung lebt in Ubuntu unter WSL2.
-          </p>
-        </section>
-
-      </section>
-
-      <!-- ==================== ENDE / FOLLOW-UP ==================== -->
-      <section>
-        <div class="section-label">Ende</div>
-        <h2>Danke &amp; <span class="highlight">Follow-up</span></h2>
-        <p style="font-size: 0.85em; margin-bottom: 1.5em;">
-          Fragen, Ideen, Zusammenarbeit &ndash; meldet euch jederzeit.
-        </p>
-        <ul style="list-style: none; padding: 0;">
-          <li><span class="icon">person</span> <strong>Wolfgang Ihloff</strong> &middot; AI Systems Architect &middot; Fractional CTO</li>
-          <li><span class="icon">mail</span> <a href="mailto:wolfgang@ihloff.de">wolfgang@ihloff.de</a></li>
-          <li><span class="icon">group</span> <a href="https://www.linkedin.com/in/wolfgangihloff/" target="_blank">linkedin.com/in/wolfgangihloff</a></li>
-        </ul>
-        <p style="margin-top: 1.5em;">
-          <a href="https://app.formbricks.com/s/cmmt5aesk4ulcul01wd1o6uaw" target="_blank"
-             style="font-size: 0.75em;"><span class="icon">rate_review</span> Feedback &amp; Follow-up &rarr; formbricks.com</a>
-        </p>
-      </section>
-
-      <!-- ==================== BACKUP: PROJEKT-IDEEN ==================== -->
-      <section>
-        <section>
-          <div class="section-label">Backup &middot; Projekt-Ideen</div>
-          <h2>Projekt-Idee: <span class="highlight">Jira Copilot</span></h2>
-          <ul>
-            <li><span class="icon">sync_problem</span> Daten aus <strong>mehreren Jira-Projekten</strong> normalisieren</li>
-            <li><span class="icon">today</span> <strong>Daily-Vorschlag</strong> &amp; <strong>Sprint-Planung</strong></li>
-            <li><span class="icon">rule</span> <strong>Eigene Regeln</strong>, Abrechnung, Kapazit&auml;t</li>
-          </ul>
-          <p class="subtitle" style="margin-top: 1em;">
-            Jeder kennt die Jira-H&ouml;lle &ndash; ohne KI w&auml;ren das Wochen Arbeit.
-          </p>
-          <aside class="notes">
-            Nur zeigen wenn die Gruppe kein eigenes Projekt gew&auml;hlt hat. Ansonsten &uuml;berspringen.
-          </aside>
-        </section>
-
-        <section>
-          <h2><span class="icon">event</span> Projekt-Idee: <span class="highlight">Veranstaltungsplanung</span></h2>
-          <ul>
-            <li><span class="icon">sync_problem</span> Teilnehmer, Raum, Catering, Technik &ndash; alles in <strong>verschiedenen Tools</strong></li>
-            <li><span class="icon">edit_calendar</span> &Auml;nderungen l&ouml;sen <strong>Ketten-Updates</strong> aus &ndash; manuell &amp; fehleranf&auml;llig</li>
-            <li><span class="icon">checklist</span> Checklisten existieren nur <strong>im Kopf</strong> der Organisatoren</li>
-            <li><span class="icon">notifications</span> Teilnehmer-Kommunikation ist <strong>Copy-Paste aus 3 Vorlagen</strong></li>
-            <li><span class="icon">tune</span> Eigene Workflows statt <strong>Eventbrite-Logik</strong>, die nicht zu euch passt</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2><span class="icon">language</span> Projekt-Idee: <span class="highlight">Homepage-CMS</span></h2>
-          <ul>
-            <li><span class="icon">lock</span> Jede kleine Text&auml;nderung braucht den <strong>Admin oder die Agentur</strong></li>
-            <li><span class="icon">speed</span> CMS-Bloat: 80% der Features <strong>nie genutzt</strong>, aber trotzdem langsam</li>
-            <li><span class="icon">palette</span> Design-Freiheit endet dort, wo das <strong>Template aufh&ouml;rt</strong></li>
-            <li><span class="icon">security</span> WordPress &amp; Co. = permanente <strong>Update- und Sicherheitspflege</strong></li>
-            <li><span class="icon">bolt</span> Eigenes CMS: <strong>genau die Felder</strong>, die ihr braucht &ndash; nicht 200 Plugins</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2><span class="icon">hub</span> Projekt-Idee: <span class="highlight">Intranet-Portal</span></h2>
-          <ul>
-            <li><span class="icon">search_off</span> Wissen verstreut in <strong>Mail, Teams, SharePoint, Wiki</strong> &ndash; niemand findet was</li>
-            <li><span class="icon">group_off</span> Onboarding neuer Mitarbeiter dauert Wochen &ndash; <strong>nichts ist zentral</strong></li>
-            <li><span class="icon">visibility_off</span> Ank&uuml;ndigungen gehen unter &ndash; <strong>kein Single Point of Truth</strong></li>
-            <li><span class="icon">integration_instructions</span> Prozesse (Urlaub, IT-Ticket, Freigaben) laufen &uuml;ber <strong>E-Mail-Ping-Pong</strong></li>
-            <li><span class="icon">dashboard_customize</span> Eigenes Portal: <strong>eure Struktur</strong>, eure Prozesse, eure Daten</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2><span class="icon">contacts</span> Projekt-Idee: <span class="highlight">CRM</span></h2>
-          <ul>
-            <li><span class="icon">table_chart</span> Kundendaten in <strong>Excel, Outlook, Notizen</strong> &ndash; kein Gesamtbild</li>
-            <li><span class="icon">trending_down</span> Follow-ups vergessen &ndash; Deals sterben <strong>still und leise</strong></li>
-            <li><span class="icon">money_off</span> Salesforce &amp; Co. kosten <strong>50&ndash;150&euro;/User/Monat</strong> &ndash; und 80% bleibt leer</li>
-            <li><span class="icon">rule</span> Pipeline-Logik passt nicht &ndash; <strong>euer Vertrieb tickt anders</strong></li>
-            <li><span class="icon">rocket_launch</span> Eigenes CRM: <strong>eure Felder, eure Pipeline</strong>, KI-gest&uuml;tzte Zusammenfassungen</li>
-          </ul>
-        </section>
-      </section>
-
+    <div class="slides" id="slides-container">
+      <!-- Slides are loaded dynamically from slides/*.html -->
     </div>
     <div class="logo-footer">
       <img src="assets/logo-ihloff.webp" alt="IHLOFF">
     </div>
   </div>
 
-  <script src="vendor/reveal/reveal.js"></script>
+  <script src="vendor/reveal.js/reveal.js"></script>
   <script>
+    /* ── Slide loader ── */
+    var slideFiles = [
+      'slides/00-title.html',
+      'slides/01-about.html',
+      'slides/03-lagebild.html',
+      'slides/04-project.html',
+      'slides/05-agenda.html',
+      'slides/06-end.html',
+      'slides/07-backup-projects.html',
+      'slides/08-followup.html'
+    ];
+
+    Promise.all(
+      slideFiles.map(function(file) {
+        return fetch(file, { cache: 'no-store' })
+          .then(function(response) {
+            if (!response.ok) throw new Error('Failed to load ' + file);
+            return response.text();
+          });
+      })
+    ).then(function(htmlParts) {
+      document.getElementById('slides-container').innerHTML = htmlParts.join('\n');
+      initUsageStats();
+      Reveal.initialize({
+        hash: true,
+        slideNumber: true,
+        transition: 'fade',
+        transitionSpeed: 'fast',
+        controls: true,
+        progress: true,
+        margin: 0.15,
+      });
+    }).catch(function(err) {
+      console.error('Slide loading failed:', err);
+      document.getElementById('slides-container').innerHTML =
+        '<section><h1>Fehler beim Laden</h1><p>' + err.message + '</p></section>';
+    });
+
+    /* ── Usage stats helpers ── */
     function formatInteger(value) {
       return new Intl.NumberFormat('de-DE', {
         maximumFractionDigits: 0
@@ -811,38 +460,30 @@
         'Stand ' + formatDate(data.generatedAt) + ' \u00b7 ' + data.note;
     }
 
-    fetch('assets/usage-stats.json', { cache: 'no-store' })
-      .then(function(response) {
-        if (!response.ok) {
-          throw new Error('Could not load local usage stats');
-        }
-        return response.json();
-      })
-      .then(renderUsageStats)
-      .catch(function() {
-        document.getElementById('usage-stats-subtitle').textContent =
-          'Lokale Nutzung konnte nicht geladen werden';
-        document.getElementById('tool-stats-grid').innerHTML = [
-          '<div class="tool-card">',
-          '  <div class="tool-name">Keine Stats-Datei gefunden</div>',
-          '  <span class="primary">npm run refresh:stats</span>',
-          '  <div class="tool-since">Dann die Deck-Ansicht neu laden.</div>',
-          '</div>'
-        ].join('');
-        document.getElementById('tool-callouts').innerHTML = '';
-        document.getElementById('stats-footnote').textContent =
-          'Lokale Session-Logs konnten nicht gelesen werden.';
-      });
-
-    Reveal.initialize({
-      hash: true,
-      slideNumber: true,
-      transition: 'fade',
-      transitionSpeed: 'fast',
-      controls: true,
-      progress: true,
-      margin: 0.15,
-    });
+    function initUsageStats() {
+      fetch('assets/usage-stats.json', { cache: 'no-store' })
+        .then(function(response) {
+          if (!response.ok) {
+            throw new Error('Could not load local usage stats');
+          }
+          return response.json();
+        })
+        .then(renderUsageStats)
+        .catch(function() {
+          document.getElementById('usage-stats-subtitle').textContent =
+            'Lokale Nutzung konnte nicht geladen werden';
+          document.getElementById('tool-stats-grid').innerHTML = [
+            '<div class="tool-card">',
+            '  <div class="tool-name">Keine Stats-Datei gefunden</div>',
+            '  <span class="primary">npm run refresh:stats</span>',
+            '  <div class="tool-since">Dann die Deck-Ansicht neu laden.</div>',
+            '</div>'
+          ].join('');
+          document.getElementById('tool-callouts').innerHTML = '';
+          document.getElementById('stats-footnote').textContent =
+            'Lokale Session-Logs konnten nicht gelesen werden.';
+        });
+    }
   </script>
 </body>
 </html>

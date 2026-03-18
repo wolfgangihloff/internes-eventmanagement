@@ -1,0 +1,126 @@
+      <!-- ==================== FOLLOW-UP: NEUE SLIDES AUS SESSION-ANALYSE ==================== -->
+      <section>
+
+        <!-- Intro -->
+        <section>
+          <div class="section-label">Follow-up</div>
+          <h2>Vertiefung &amp; <span class="highlight">Referenz</span></h2>
+          <p class="subtitle">Zus&auml;tzliches Material &ndash; aus Teilnehmer-Feedback und Session-Erfahrung</p>
+          <div class="agenda-grid" style="font-size: 0.82em; margin-top: 1.5em;">
+            <span class="icon" style="font-size: 1em;">route</span>
+            <span><strong>AI-Entwicklungsprozess</strong> &ndash; Schritt-f&uuml;r-Schritt Guide</span>
+            <span class="icon" style="font-size: 1em;">menu_book</span>
+            <span><strong>Glossar</strong> &ndash; Begriffe kurz erkl&auml;rt</span>
+            <span class="icon" style="font-size: 1em;">payments</span>
+            <span><strong>Kosten</strong> &ndash; Free, Pro, API</span>
+            <span class="icon" style="font-size: 1em;">security</span>
+            <span><strong>Sicherheit &amp; Zugriff</strong> &ndash; Was sieht der Agent?</span>
+            <span class="icon" style="font-size: 1em;">science</span>
+            <span><strong>Prototyp vs. Production</strong> &ndash; Erwartungsmanagement</span>
+          </div>
+        </section>
+
+        <!-- Entwicklungsprozess-Guide -->
+        <section>
+          <div class="section-label">Follow-up</div>
+          <h2><span class="icon">route</span> AI-Entwicklungsprozess</h2>
+          <div class="agenda-grid" style="font-size: 0.72em;">
+            <span class="time">1</span>
+            <span><span class="icon">chat</span> <strong>Requirements erfassen</strong> &ndash; Feature-Liste in ChatGPT/Claude besprechen, Spec als Markdown exportieren</span>
+            <span class="time">2</span>
+            <span><span class="icon">shield</span> <strong>Leitplanken setzen</strong> &ndash; CLAUDE.md / agents.md anlegen: Sprache, Stack, Konventionen, Dos &amp; Don'ts</span>
+            <span class="time">3</span>
+            <span><span class="icon">skeleton</span> <strong>Walking Skeleton</strong> &ndash; Frontend + Backend + Infra End-to-End lauff&auml;hig, bevor Features kommen</span>
+            <span class="time">4</span>
+            <span><span class="icon">loop</span> <strong>Features iterativ</strong> &ndash; Pro Feature: umsetzen &rarr; testen &rarr; committen. Kleine Pakete!</span>
+            <span class="time">5</span>
+            <span><span class="icon">description</span> <strong>Dokumentation</strong> &ndash; Agent generiert README, Setup Guide, Architektur-Docs</span>
+            <span class="time">6</span>
+            <span><span class="icon">cloud_upload</span> <strong>Deployment</strong> &ndash; Dockerfile, CI/CD Pipeline, Container-Registry, k3s/Cloud</span>
+            <span class="time">7</span>
+            <span><span class="icon">verified</span> <strong>Review &amp; Stabilisierung</strong> &ndash; Fehlerhandling, Security, Tests explizit beauftragen</span>
+          </div>
+          <aside class="notes">
+            Aus Teilnehmer-Feedback: "Eine Art Guide mit den wesentlichen Schritten im Entwicklungsprozess."
+          </aside>
+        </section>
+
+        <!-- Glossar -->
+        <section>
+          <div class="section-label">Follow-up</div>
+          <h2><span class="icon">menu_book</span> Glossar</h2>
+          <ul style="font-size: 0.65em; columns: 2; column-gap: 2em;">
+            <li><strong>IDE</strong> &ndash; Integrated Development Environment (z.B. VS Code)</li>
+            <li><strong>Agent</strong> &ndash; KI die eigenst&auml;ndig Aktionen ausf&uuml;hrt</li>
+            <li><strong>Prompt</strong> &ndash; Anweisung/Eingabe an die KI</li>
+            <li><strong>Context Window</strong> &ndash; Wie viel Text die KI gleichzeitig &bdquo;sehen&ldquo; kann</li>
+            <li><strong>Commit</strong> &ndash; Gesicherter Zwischenstand im Code</li>
+            <li><strong>Monorepo</strong> &ndash; Ein Repository f&uuml;r Frontend + Backend</li>
+            <li><strong>Walking Skeleton</strong> &ndash; Minimale End-to-End-Version</li>
+            <li><strong>TDD</strong> &ndash; Test-Driven Development</li>
+            <li><strong>CI/CD</strong> &ndash; Automatisches Bauen &amp; Ausliefern</li>
+            <li><strong>Container</strong> &ndash; Isolierte Laufzeitumgebung (Docker)</li>
+          </ul>
+        </section>
+
+        <!-- Kosten -->
+        <section>
+          <div class="section-label">Follow-up</div>
+          <h2><span class="icon">payments</span> Was kostet das?</h2>
+          <ul style="font-size: 0.82em;">
+            <li><span class="icon">money_off</span> <strong>Free Tier</strong> &ndash; Codex, Kiro, Cursor Free, Claude Free &ndash; begrenzt aber zum Ausprobieren genug</li>
+            <li><span class="icon">credit_card</span> <strong>Pro/Max</strong> &ndash; ~20&ndash;200 $/Monat pro Tool</li>
+            <li><span class="icon">api</span> <strong>API / Pay-per-Use</strong> &ndash; Flexibel, aber Vorsicht: Agents k&ouml;nnen unkontrolliert Kosten erzeugen</li>
+          </ul>
+          <p class="subtitle" style="margin-top: 1em;">
+            Tipp: Mit <strong>Flat Rate</strong> starten, bis man seinen Verbrauch kennt.
+          </p>
+          <aside class="notes">
+            Wolfgang nutzt Claude Pro Max (~200$/mo) + Codex (~200$/mo).
+            Erfahrung: Freitags ist Claude-Quota oft aufgebraucht, dann Wechsel auf Codex.
+          </aside>
+        </section>
+
+        <!-- Security & Zugriff -->
+        <section>
+          <div class="section-label">Follow-up</div>
+          <h2><span class="icon">security</span> Sicherheit &amp; Zugriff</h2>
+          <ul style="font-size: 0.75em;">
+            <li><span class="icon">folder</span> <strong>Was sieht der Agent?</strong> &ndash; Lokale Dateien im Projektordner. Zugriff konfigurierbar</li>
+            <li><span class="icon">cloud</span> <strong>Wo gehen Daten hin?</strong> &ndash; API-Provider. Keine dauerhafte Speicherung bei Pro-Accounts</li>
+            <li><span class="icon">lock</span> <strong>Best Practices:</strong>
+              <ul style="font-size: 0.9em; margin-top: 0.2em;">
+                <li>Verzeichnis-Zugriff einschr&auml;nken (ein Projekt pro Session)</li>
+                <li><code>.env</code> nie committen &ndash; <code>.gitignore</code> pflegen</li>
+                <li>Secrets Manager nutzen (1Password CLI, Vault)</li>
+                <li>Default: alles aus, gezielt freigeben</li>
+              </ul>
+            </li>
+          </ul>
+          <aside class="notes">
+            Tipp aus Session 1: Ein Teilnehmer schaltet standardmaessig alle Dateizugriffe aus.
+            "Wenn man API-Keys auf GitHub pusht, sind sie in unter 5 Minuten kompromittiert."
+          </aside>
+        </section>
+
+        <!-- Prototype vs. Production -->
+        <section>
+          <div class="section-label">Follow-up</div>
+          <h2><span class="icon">science</span> Prototyp vs. Production</h2>
+          <div class="agenda-grid" style="font-size: 0.82em;">
+            <span class="time" style="font-family: inherit; font-weight: 700;">Prototyp</span>
+            <span>2&ndash;4 Stunden &middot; zeigt Machbarkeit &middot; hat Bugs &middot; beweist den Ansatz</span>
+            <span class="time" style="font-family: inherit; font-weight: 700;">Production</span>
+            <span>Tests &middot; Security Review &middot; Monitoring &middot; Logging &middot; Doku &middot; Edge Cases</span>
+          </div>
+          <ul style="margin-top: 1em; font-size: 0.82em;">
+            <li>KI beschleunigt <strong>10x</strong> &ndash; ersetzt aber nicht den Qualit&auml;tsprozess</li>
+            <li>Was ihr in der Session seht ist ein <strong>funktionierender Beweis</strong>, kein fertiges Produkt</li>
+            <li>Der Weg zur Production braucht die gleiche Sorgfalt &ndash; nur <strong>schneller</strong></li>
+          </ul>
+          <aside class="notes">
+            Wichtig: Diese Erwartung frueh setzen, nicht erst am Ende wenn Bugs auftauchen.
+          </aside>
+        </section>
+
+      </section>

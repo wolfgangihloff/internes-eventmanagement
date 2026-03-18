@@ -1,0 +1,153 @@
+      <!-- ==================== AGENDA ==================== -->
+      <section>
+        <section>
+          <div class="section-label">Agenda</div>
+          <h2>Wie wir das bauen</h2>
+          <div class="agenda-grid">
+            <span class="time">20 min</span>
+            <span><strong>Requirements</strong> &ndash; KI schreibt die Spec aus unserer Feature-Liste</span>
+
+            <span class="time">25 min</span>
+            <span><strong>Anwendung</strong> &ndash; KI baut das Projekt (API-Anbindung, Logik, Tests)</span>
+
+            <span class="time" style="opacity:0.3">&nbsp;</span>
+            <span style="opacity:0.3; font-style:italic">Pause</span>
+
+            <span class="time">20 min</span>
+            <span><strong>Dokumentation</strong> &ndash; KI generiert README, Setup Guide, Architektur-Doc</span>
+
+            <span class="time">20 min</span>
+            <span><strong>Infrastruktur</strong> &ndash; CI/CD Pipeline, Container, Deployment auf k3s</span>
+
+            <span class="time">15 min</span>
+            <span><strong>Agent als PM</strong> &ndash; Agent bekommt n&auml;chstes Feature, macht alles allein</span>
+          </div>
+          <p class="subtitle" style="margin-top: 1.5em;">Ein Projekt. F&uuml;nf Perspektiven. Alles live in VS Code.</p>
+        </section>
+
+        <!-- Guide: Zwischenstände sichern -->
+        <section>
+          <h2><span class="icon">save</span> Zwischenst&auml;nde sichern</h2>
+          <ul>
+            <li>Agent-Fehler ziehen sich durch das <strong>gesamte System</strong> &ndash; DB, API, UI gleichzeitig betroffen</li>
+            <li>Nach jedem stabilen Schritt <strong>committen</strong> &ndash; das ist euer Sicherheitsnetz</li>
+            <li>Fortschritt = <strong>stabile Zwischenst&auml;nde</strong>, nicht Menge an generiertem Code</li>
+          </ul>
+          <p class="subtitle" style="margin-top: 1em;">
+            Grundregel: Nach jedem validierten Schritt ein Commit &ndash; egal welches Tool.
+          </p>
+        </section>
+
+        <!-- Guide: Sessions neu starten -->
+        <section>
+          <h2><span class="icon">restart_alt</span> Sessions bewusst neu starten</h2>
+          <ul>
+            <li>Kontextfenster ist <strong>begrenzt</strong> &ndash; Qualit&auml;t sinkt mit der Sessionl&auml;nge</li>
+            <li>Symptome: widerspr&uuml;chliche Antworten, Wiederholungen, <strong>Scheinfortschritt</strong></li>
+            <li>Kurze &Uuml;bergabe mit Ziel, Regeln und offenem Task &ndash; <strong>max. 10&ndash;20 Zeilen</strong></li>
+          </ul>
+          <p class="subtitle" style="margin-top: 1em;">
+            Neustart ist kein R&uuml;ckschritt, sondern Re-Fokussierung.
+          </p>
+        </section>
+
+        <!-- Guide: Leitplanken definieren -->
+        <section>
+          <h2><span class="icon">shield</span> Leitplanken definieren</h2>
+          <ul>
+            <li>Agents haben <strong>kein Langzeitged&auml;chtnis</strong> &uuml;ber Sessions hinweg</li>
+            <li>Zentrale Regeldatei anlegen: <strong>agents.md</strong>, <strong>.cursorrules</strong>, <strong>CLAUDE.md</strong></li>
+            <li>Schlank halten &ndash; zu viel Kontext <strong>reduziert</strong> die Effizienz</li>
+          </ul>
+          <p class="subtitle" style="margin-top: 1em;">
+            Wie ein Mitarbeiterhandbuch &ndash; Standards definieren, kontinuierlich pflegen.
+          </p>
+        </section>
+
+        <!-- Guide: Kleine Arbeitspakete -->
+        <section>
+          <h2><span class="icon">view_agenda</span> Kleine Arbeitspakete schneiden</h2>
+          <ul>
+            <li>Der <strong>Fehler-Radius</strong> w&auml;chst mit der Aufgabengr&ouml;&szlig;e</li>
+            <li>Jeder Schritt: <strong>umsetzen &rarr; testen &rarr; committen</strong></li>
+            <li>Gute Task-Definition ersetzt technische Detailarbeit</li>
+          </ul>
+          <p class="subtitle" style="margin-top: 1em;">
+            Scope begrenzen: &bdquo;Implementiere nur Schritt 1. Keine UI, keine API.&ldquo;
+          </p>
+        </section>
+
+        <!-- Guide: Qualität einfordern -->
+        <section>
+          <h2><span class="icon">verified</span> Qualit&auml;t explizit einfordern</h2>
+          <ul>
+            <li>Agents liefern nur den <strong>Happy Path</strong> &ndash; ohne explizite Anweisung</li>
+            <li>Fehlerhandling, Sicherheit, Datenschutz <strong>aktiv beauftragen</strong></li>
+            <li>Demo sieht gut aus &ndash; Probleme kommen erst <strong>im Betrieb</strong></li>
+          </ul>
+          <p class="subtitle" style="margin-top: 1em;">
+            Explizit: &bdquo;Erg&auml;nze Fehlerbehandlung. Nutzer sehen nur eigene Daten. Keine sensiblen Logs.&ldquo;
+          </p>
+        </section>
+
+        <!-- Guide: AI Development Supervisor -->
+        <section>
+          <h2><span class="icon">supervisor_account</span> Neue Rolle: AI Supervisor</h2>
+          <ul>
+            <li>Rolle verschiebt sich: <strong>Koordination</strong> &rarr; <strong>Steuerung</strong> von AI-Prozessen</li>
+            <li>Erst <strong>planen</strong>, dann umsetzen, dann <strong>reviewen</strong> &ndash; je Schritt</li>
+            <li>Steuerung <strong>vor</strong> dem Fehler statt danach</li>
+          </ul>
+          <p class="subtitle" style="margin-top: 1em;">
+            &bdquo;Erstelle zuerst einen Plan. Ich gebe frei. Stoppe nach jedem Schritt f&uuml;r Review.&ldquo;
+          </p>
+        </section>
+
+        <!-- Tools: Kostenlose Coding Agents -->
+        <section>
+          <h2><span class="icon">rocket_launch</span> Kostenlose Coding Agents</h2>
+          <div class="agenda-grid" style="font-size: 0.85em;">
+            <span class="icon" style="font-size: 1em;">terminal</span>
+            <span><strong>Codex</strong> (OpenAI) &ndash; CLI-basierter Coding-Agent &nbsp;
+              <a href="https://platform.openai.com/signup" target="_blank">platform.openai.com</a></span>
+
+            <span class="icon" style="font-size: 1em;">cloud</span>
+            <span><strong>Kiro</strong> (AWS) &ndash; Agentic IDE mit Free Credits &nbsp;
+              <a href="https://kiro.dev/" target="_blank">kiro.dev</a></span>
+
+            <span class="icon" style="font-size: 1em;">edit_note</span>
+            <span><strong>Cursor</strong> &ndash; Agentic IDE mit Autocomplete + Multi-File Editing &nbsp;
+              <a href="https://cursor.sh" target="_blank">cursor.sh</a></span>
+          </div>
+          <p class="subtitle" style="margin-top: 1.5em;">
+            Free Tier meist zeitlich oder nutzungsbegrenzt &ndash; aber genug, um loszuspielen.
+          </p>
+        </section>
+
+        <section>
+          <h2><span class="icon">laptop_windows</span> Windows Setup f&uuml;r Coding Agents</h2>
+          <div class="agenda-grid" style="font-size: 0.68em; gap: 0.15em 1.2em;">
+            <span class="icon" style="font-size: 1em;">memory</span>
+            <span><strong>Hardware:</strong> 16 GB RAM min., 32 GB besser; 4+ Kerne; 40&ndash;50 GB freie SSD</span>
+
+            <span class="icon" style="font-size: 1em;">computer</span>
+            <span><strong>Windows:</strong> ideal Win 11; Win 10 geht, wenn Virtualization aktiv und <strong>WSL2</strong> l&auml;uft</span>
+
+            <span class="icon" style="font-size: 1em;">terminal</span>
+            <span><strong>Zuerst:</strong> WSL2 + Ubuntu, Windows Terminal, VS Code, Git, Secret Manager</span>
+
+            <span class="icon" style="font-size: 1em;">download</span>
+            <span><strong>In WSL:</strong> build-essential, git, curl, unzip, jq, ripgrep, fd-find, zsh, tmux</span>
+
+            <span class="icon" style="font-size: 1em;">deployed_code</span>
+            <span><strong>Runtimes:</strong> Node LTS (nvm), Python 3 + uv, Docker/Rancher Desktop mit WSL</span>
+
+            <span class="icon" style="font-size: 1em;">rule</span>
+            <span><strong>Wichtig:</strong> Alles <strong>in WSL</strong> ausf&uuml;hren &ndash; nicht halb Windows, halb Linux</span>
+          </div>
+          <p class="subtitle" style="margin-top: 0.6em;">
+            Faustregel: Windows ist Host und UI &ndash; Dev-Umgebung lebt in Ubuntu unter WSL2.
+          </p>
+        </section>
+
+      </section>
